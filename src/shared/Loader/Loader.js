@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Spinner from 'react-loader-spinner'
-import styles from '../../features/counter/Counter/module.css'
+import styles from '../../features/counter/Counter.module.css'
  
 const Loader = () => {
 
