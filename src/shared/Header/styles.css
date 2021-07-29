@@ -1,29 +1,27 @@
-
-.btn-primary{
-    background-color: #18A0FB;
+.btn-primary {
+  background-color: #18a0fb;
 }
-.navbar-light{
-    align-items: center; 
-}
-
-.btn-blue{
-    color: #18A0FB; 
-    border: 2px solid #18A0FB; 
-    margin: 0 1%;
-    background-color: #fff;
-    
-}
-.btn-blue:hover{
-        color: #18A0FB; 
-        background-color: rgb(24, 160, 251, .3);
+.navbar-light {
+  align-items: center;
 }
 
-.nav-monserrat{
-    font-family: Montserrat;
-    font-size: 15px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 18px;
-    letter-spacing: -0.015em;
-    text-align: center;
+.btn-blue {
+  color: #18a0fb;
+  border: 2px solid #18a0fb;
+  margin: 0 1%;
+  background-color: #fff;
+}
+.btn-blue:hover {
+  color: #18a0fb;
+  background-color: rgb(24, 160, 251, 0.3);
+}
+
+.nav-monserrat {
+  font-family: Montserrat;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 18px;
+  letter-spacing: -0.015em;
+  text-align: center;
 }
