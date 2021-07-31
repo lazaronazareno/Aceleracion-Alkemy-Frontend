@@ -11,7 +11,7 @@ const Alert = (props) => {
         text={props.text}
         type={props.type} //FYI: Choose between 4 built-in icons: 'warning', 'error', 'success' or 'info'
         onConfirm={props.onConfirm}
-      />
+      />      
     </div>
   );
 };
