@@ -1,0 +1,25 @@
+.imageCarousel{
+	display: flex;
+	justify-content: center;
+	height: 40vh;
+}
+
+.carousel{
+	background-color: rgb(0,0,0,.3);
+	height: 40vh;
+}
+
+.carousel-item{
+	height: 40vh;
+}
+.carousel img{
+	padding-bottom: 300px;
+}
+
+.sr-only{
+	display: none;
+}
+
+.infoCarousel{
+	color: white; 
+}
