@@ -1,0 +1,28 @@
+*{
+    box-sizing: border-box;
+}
+
+.imgCard{
+	justify-content: center;
+    align-content: center;
+	height: 40vh;
+    background: #E5E5E5;
+    border: 1px solid #0000004D;
+}
+
+.bodyCard{
+    background: #E5E5E5;
+    border: 1px solid #0000004D;
+}
+
+.flex-container{ 
+    display: flex;
+    padding: 50px;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.row{
+    padding: 10px;
+}
