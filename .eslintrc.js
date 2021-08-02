@@ -21,25 +21,21 @@ module.exports = {
 	'plugins': [
 		'react'
 	],
-    "settings": {
-        "react": {
-            "version": "detect"
-        }
-    },
+	"settings": {
+		"react": {
+			"version": "detect"
+		}
+	},
 	'rules': {
-        'no-var': 'error',
-        'brace-style': 'error',
-        'prefer-template': 'error',
-        radix: 'error',
-        'space-before-blocks': 'error',
-        'import/prefer-default-export': 'off',
+		'no-var': 'error',
+		'brace-style': 'error',
+		'prefer-template': 'error',
+		radix: 'error',
+		'space-before-blocks': 'error',
+		'import/prefer-default-export': 'off',
 		'indent': [
-			'error',
+			2,
 			'tab'
-		],
-		'linebreak-style': [
-			'error',
-			'windows'
 		],
 		'quotes': [
 			'error',
@@ -48,21 +44,22 @@ module.exports = {
 		'semi': [
 			'error',
 			'never'
-		]
+		],
+		'prefer-arrow-callback': [ "error", { "allowNamedFunctions": false } ]
 	},
-    overrides: [
-        {
-            files: [
-                '**/*.test.js',
-                '**/*.test.jsx',
-                '**/*.test.tsx',
-                '**/*.spec.js',
-                '**/*.spec.jsx',
-                '**/*.spec.tsx',
-            ],
-            env: {
-                jest: true,
-            },
-        },
-    ],
+	overrides: [
+		{
+			files: [
+				'**/*.test.js',
+				'**/*.test.jsx',
+				'**/*.test.tsx',
+				'**/*.spec.js',
+				'**/*.spec.jsx',
+				'**/*.spec.tsx',
+			],
+			env: {
+				jest: true,
+			},
+		},
+	],
 }
