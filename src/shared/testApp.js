@@ -1,8 +1,13 @@
-import React from 'react'
+import React, { useState } from 'react'
 import logo from '../logo.svg'
 import { Counter } from '../features/counter/Counter'
+import Alert from '../shared/Alert/Alert'
 
-function testApp() {
+function TestApp() {
+	const [showSuccess, setShowSuccess] = useState(false)
+	const [showError, setShowError] = useState(false)
+	const [showInfo, setShowInfo] = useState(false)
+
 	return (
 		<div className="App">
 			<header className="App-header">
@@ -49,9 +54,42 @@ function testApp() {
             React Redux
 					</a>
 				</span>
+				<button className="button" onClick={() => setShowError(true)}>
+					{' '}
+          Error Button{' '}
+				</button>
+				<Alert
+					show={showError}
+					title="Oops"
+					text="Something went wrong"
+					type="error"
+					onConfirm={() => setShowError(false)}
+				/>
+				<button className="button" onClick={() => setShowSuccess(true)}>
+					{' '}
+          Success Button{' '}
+				</button>
+				<Alert
+					show={showSuccess}
+					title="Good Job!"
+					text="You clicked the button"
+					type="success"
+					onConfirm={() => setShowSuccess(false)}
+				/>
+				<button className="button" onClick={() => setShowInfo(true)}>
+					{' '}
+          Info Button{' '}
+				</button>
+				<Alert
+					show={showInfo}
+					title="Info"
+					text="You clicked the button"
+					type="info"
+					onConfirm={() => setShowInfo(false)}
+				/>
 			</header>
 		</div>
 	)
 }
 
-export default testApp
+export default TestApp

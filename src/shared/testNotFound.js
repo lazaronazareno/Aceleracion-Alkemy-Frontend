@@ -3,7 +3,7 @@ import { Container, Alert, Button } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import './testStyles.scss'
 
-function testNotFound() {
+function NotFound() {
 	return (
 		<Container>
 			<Alert className="d-flex flex-column yellow align-items-center fs-1">
@@ -18,4 +18,4 @@ function testNotFound() {
 	)
 }
 
-export default testNotFound
+export default NotFound
