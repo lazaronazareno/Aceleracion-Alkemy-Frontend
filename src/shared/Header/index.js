@@ -1,5 +1,6 @@
 import React from 'react'
 import { Navbar, Nav, Container, Button } from 'react-bootstrap'
+import { Link, useLocation } from 'react-router-dom'
 import './styles.css' // This is for style variants used
 
 export const Header = () => {
@@ -9,40 +10,43 @@ export const Header = () => {
 	const infoNavbarNL = [
 		{
 			title: 'Inicio',
-			link: '/#',
+			link: '/',
 		},
 		{
 			title: 'Nosotros',
-			link: '/#nosotros',
+			link: '/nosotros',
 		},
 		{
 			title: 'Actividades',
-			link: '/#actividades',
+			link: '/actividades',
 		},
 		{
 			title: 'Novedades',
-			link: '/#novedades',
+			link: '/novedades',
 		},
 		{
 			title: 'Testimonios',
-			link: '/#testimonios',
+			link: '/testimonios',
 		},
 		{
 			title: 'Contacto',
-			link: '/#contacto',
+			link: '/contacto',
 		},
 		{
 			title: 'Contribuye',
-			link: '/#contribuye',
+			link: '/contribuye',
 		},
 	]
+
+	const location = useLocation()
+	const { pathname } = location
 
 	const infoNavbarL = []
 	return (
 		<>
 			<Navbar bg="light" variant="light" expand="lg">
 				<Container>
-					<Navbar.Brand href="/#">
+					<Navbar.Brand as={Link} to="/">
 						<img src="images/assets/logo-header-2.svg" alt="sample-logo" />
 						<img src="images/assets/logo-header.svg" alt="logo" />
 					</Navbar.Brand>
@@ -52,8 +56,8 @@ export const Header = () => {
 							{!isLogged
 								? infoNavbarNL.map((item) => {
 									return (
-										<Nav.Item key={item.title}>
-											<Nav.Link variant="test" href={`${item.link}`}>
+										<Nav.Item className={pathname === item.link ? 'active' : ''} key={item.title}>
+											<Nav.Link as={Link} variant="test" to={`${item.link}`}>
 												{item.title}
 											</Nav.Link>
 										</Nav.Item>
@@ -71,10 +75,10 @@ export const Header = () => {
 						</Nav>
 						{!isLogged && (
 							<Nav className="me-auto" variant="btn-container">
-								<Button variant="blue" size="sm">
+								<Button as={Link} to="/login" variant="blue" size="sm">
                   Login
 								</Button>
-								<Button variant="primary" size="sm">
+								<Button as={Link} to="/register" variant="primary" size="sm">
                   Registrarse
 								</Button>
 							</Nav>
