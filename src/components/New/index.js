@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Card } from 'react-bootstrap'
-import axios from 'axios'
+import axios from 'axios' 
 import './styles.css'
 import PropTypes from 'prop-types'
 
