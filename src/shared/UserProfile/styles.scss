@@ -1,0 +1,43 @@
+.yellow {
+    background-color: #FAFA88!important;
+}
+
+.red {
+    background-color: #DB5752!important;
+}
+
+.blue {
+    background-color: #9AC9FB!important;
+}
+
+.referenceSize {
+    height: 20vh;
+}
+
+.translate {
+    transform: translateY(10vh);
+    z-index: 2;
+}
+
+.btn-info {
+    
+    color: #9AC9FB!important;
+    background-color: #fafafa!important;
+    border: 2px solid #9AC9FB!important;
+    &:hover {
+        background-color: #9AC9FB!important;
+        border: 2px solid #9AC9FB!important;
+        color: #fafafa!important;
+    }
+}
+.btn-danger {
+    color: #DB5752!important;
+    background-color: #fafafa!important;
+    border: 2px solid #DB5752!important;
+    
+    &:hover {
+        background-color: #DB5752!important;
+        border: 2px solid #DB5752!important;
+        color: #fafafa!important;
+    }
+}
