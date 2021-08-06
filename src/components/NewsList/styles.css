@@ -1,28 +1,16 @@
-*{
-    box-sizing: border-box;
+.left{
+    text-align: left;
 }
 
-.imgCard{
-	justify-content: center;
-    align-content: center;
-	height: 239px;
-    background: #E5E5E5;
-    border: 1px solid #0000004D;
+.container{
+    padding: 15px 0px;
 }
 
-.bodyCard{
-    background: #E5E5E5;
-    border: 1px solid #0000004D;
+.card{
+    margin-bottom: 10px;
 }
 
-.flex-container{ 
-    display: flex;
-    padding: 50px;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-}
-
-.row{
-    padding: 5px;
+.date{
+    font-size: small;
+    color: darkgrey;
 }

@@ -5,7 +5,7 @@ import NotFound from './shared/testNotFound'
 import './App.css'
 import Home from './shared/Home/Home'
 import { Header } from './shared/Header'
-import NewList from './components/NewsList'
+import { NewList } from './components/NewsList'
 
 function App() {
 	return (

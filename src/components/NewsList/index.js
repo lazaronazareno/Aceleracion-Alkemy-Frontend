@@ -1,52 +1,54 @@
-import React, { Component } from 'react'
-import './styles.css'
-import 'bootstrap/dist/css/bootstrap.min.css'
-import { Card } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
+import React, { useState, useEffect } from 'react'
 import axios from 'axios'
+import { Link } from 'react-router-dom'
+import Moment from 'moment'
+import { Card, Col, Row, Container } from 'react-bootstrap'
+import 'bootstrap/dist/css/bootstrap.min.css'
+import './styles.css'
 
-export default class NewList extends Component {
-	constructor() {
-		super()
-		this.state = {
-			news: []
-		}
-	}  
+/* eslint indent:"off" */
+export const NewList  = () => {
 
-	async componentDidMount() {
-		this.getNews()
-	}
+  const [news, setNews] = useState([])
+
+  useEffect( () => {
+
+    const config = {
+      url: '/news',
+      method: 'get',
+      baseURL: 'http://localhost:4000',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Requested-With': 'XMLHttpRequest'
+      }
+    }
+
+    axios.request(config).then( ({ data }) => setNews(data.entries) )
+
+  },[])
   
-	async getNews() {
-		const res = await axios.get('dirección del endpoint')
-		this.setState({news: res.data.data})
-
-	}
-  
-	render() {
-		return (
-			<div>
-				<div className="flex-container">
-					{this.state.news.map((newsItem,i) => {
-						return (
-							<div className="row" key={i}>
-								<div className="column">
-									<Card key={newsItem.id}>
-										<Card.Img className="imgCard" src={newsItem.avatar} />
-										<Card.Body className="bodyCard">
-											<Card.Title>{newsItem.first_name}</Card.Title >
-											<Link to={`/novedades/${  newsItem.id}`} className="btn btn-primary" style={{ margin: '4px' }}>
-                                            See news in detail</Link>
-										</Card.Body>
-									</Card>
-								</div>
-							</div>
-						)
-					})
-					}
-				</div>
-			</div>
-		)
-	}
+  return(
+    <>
+      <Container>
+        <Row>
+          {
+            news.map( ({id, name, image, createdAt } ) => {
+              return(
+                  <Col md={4} key={id}>
+                    <Card className="shadow">
+                      <Card.Img variant="top" src={ image } />
+                      <Card.Body>
+                        <Card.Title className="left">{name}</Card.Title>
+                        <Card.Text className="left date">Creado el { Moment(createdAt).format('DD-MM-YYYY')}</Card.Text>
+                        <Link className="btn btn-primary" to={`/novedades/${id}`}>See news in detail</Link>
+                      </Card.Body>
+                    </Card>
+                  </Col>
+              )
+            })
+          }
+        </Row>
+      </Container>
+    </>
+  )
 }
-
