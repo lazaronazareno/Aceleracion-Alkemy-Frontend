@@ -2,12 +2,13 @@ import React from 'react'
 import * as yup from 'yup'
 import { Formik } from 'formik'
 import { Form, Col, Button, Card } from 'react-bootstrap'
+import axios from 'axios'
 
 /* eslint indent:"off" */
 const FormRegister = () => {
   const schema = yup.object().shape({
     name: yup.string().required(),
-    lastName: yup.string().required(),
+    lastname: yup.string().required(),
     email: yup.string().email('Invalid email format').required(),
     password: yup.string().min(8, 'Debe tener un minimo de 8 caracters').required(),
   })
@@ -18,7 +19,7 @@ const FormRegister = () => {
         validationSchema={schema}
         initialValues={{
           name: '',
-          lastName: '',
+          lastname: '',
           email: '',
           password: '',
         }}
@@ -29,8 +30,8 @@ const FormRegister = () => {
             errors.name = 'Debes ingresar su nombre.'
           }
 
-          if (!values.lastName) {
-            errors.lastName = 'Debes ingresar su apellido.'
+          if (!values.lastname) {
+            errors.lastname = 'Debes ingresar su apellido.'
           }
 
           if (!values.email) {
@@ -46,11 +47,10 @@ const FormRegister = () => {
           }
           return errors
         }}
-        onSubmit={(values, { setSubmitting }) => {
-          setTimeout(() => {
-            console.log(JSON.stringify(values, null, 2))
-            setSubmitting(false)
-          }, 400)
+        onSubmit={async(values, { setSubmitting }) => {
+          setSubmitting(false)
+          const response = await axios.post('http://localhost:4000/auth/register', values)
+          console.log(response)
         }}
       >
         {({ handleSubmit, handleChange, values, touched, errors }) => (
@@ -72,18 +72,18 @@ const FormRegister = () => {
                   <Form.Control.Feedback type="invalid">{errors.name}</Form.Control.Feedback>
                 </Form.Group>
 
-                <Form.Group md="12" as={Col} controlId="validationLastName">
-                  <Form.Label>LastName</Form.Label>
+                <Form.Group md="12" as={Col} controlId="validationlastname">
+                  <Form.Label>lastname</Form.Label>
                   <Form.Control
                     type="text"
-                    name="lastName"
-                    placeholder="lastName"
-                    value={values.lastName}
+                    name="lastname"
+                    placeholder="lastname"
+                    value={values.lastname}
                     onChange={handleChange}
-                    isValid={touched.lastName && !errors.lastName}
-                    isInvalid={!!errors.lastName}
+                    isValid={touched.lastname && !errors.lastname}
+                    isInvalid={!!errors.lastname}
                   />
-                  <Form.Control.Feedback type="invalid">{errors.lastName}</Form.Control.Feedback>
+                  <Form.Control.Feedback type="invalid">{errors.lastname}</Form.Control.Feedback>
                 </Form.Group>
 
                 <Form.Label>Email</Form.Label>

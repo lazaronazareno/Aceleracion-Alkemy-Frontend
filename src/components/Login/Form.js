@@ -2,6 +2,7 @@ import React from 'react'
 import * as yup from 'yup'
 import { Formik } from 'formik'
 import { Form, Col, Button, Card } from 'react-bootstrap'
+import axios from 'axios'
 
 function FormLogin() {
 	const schema = yup.object().shape({
@@ -31,11 +32,12 @@ function FormLogin() {
 					}
 					return errors
 				}}
-				onSubmit={(values, { setSubmitting }) => {
-					setTimeout(() => {
-						console.log(JSON.stringify(values, null, 2))
-						setSubmitting(false)
-					}, 400)
+				onSubmit={ async (values, { setSubmitting }) => {
+					setSubmitting(false)
+					const response = await axios.post('http://localhost:4000/auth/login', values)
+					const {token} = response.data
+					localStorage.setItem('token', `Bearer ${token}`)
+
 				}}
 			>
 				{({ handleSubmit, handleChange, values, touched, errors }) => (
