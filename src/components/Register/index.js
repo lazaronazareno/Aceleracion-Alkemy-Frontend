@@ -3,12 +3,16 @@ import * as yup from 'yup'
 import { Formik } from 'formik'
 import { Form, Col, Button, Card } from 'react-bootstrap'
 import axios from 'axios'
+import { useDispatch } from 'react-redux'
+import actions from '../../redux/actions'
 
 /* eslint indent:"off" */
 const FormRegister = () => {
+  const { addUser } = actions
+  const dispatch = useDispatch()
   const schema = yup.object().shape({
-    name: yup.string().required(),
-    lastname: yup.string().required(),
+    firstName: yup.string().required(),
+    lastName: yup.string().required(),
     email: yup.string().email('Invalid email format').required(),
     password: yup.string().min(8, 'Debe tener un minimo de 8 caracters').required(),
   })
@@ -18,20 +22,20 @@ const FormRegister = () => {
       <Formik
         validationSchema={schema}
         initialValues={{
-          name: '',
-          lastname: '',
+          lastName: '',
+          firstName: '',
           email: '',
           password: '',
         }}
         validate={(values) => {
           const errors = {}
 
-          if (!values.name) {
-            errors.name = 'Debes ingresar su nombre.'
+          if (!values.firstName) {
+            errors.firstName = 'Debes ingresar su nombre.'
           }
 
-          if (!values.lastname) {
-            errors.lastname = 'Debes ingresar su apellido.'
+          if (!values.lastName) {
+            errors.lastName = 'Debes ingresar su apellido.'
           }
 
           if (!values.email) {
@@ -50,7 +54,7 @@ const FormRegister = () => {
         onSubmit={async(values, { setSubmitting }) => {
           setSubmitting(false)
           const response = await axios.post('http://localhost:4000/auth/register', values)
-          console.log(response)
+          dispatch(addUser(response.data.data))
         }}
       >
         {({ handleSubmit, handleChange, values, touched, errors }) => (
@@ -62,28 +66,28 @@ const FormRegister = () => {
                   <Form.Label>Name</Form.Label>
                   <Form.Control
                     type="text"
-                    name="name"
-                    placeholder="name"
-                    value={values.name}
+                    name="firstName"
+                    placeholder="Name"
+                    value={values.firstName}
                     onChange={handleChange}
-                    isValid={touched.name && !errors.name}
-                    isInvalid={!!errors.name}
+                    isValid={touched.firstName && !errors.firstName}
+                    isInvalid={!!errors.firstName}
                   />
-                  <Form.Control.Feedback type="invalid">{errors.name}</Form.Control.Feedback>
+                  <Form.Control.Feedback type="invalid">{errors.firstName}</Form.Control.Feedback>
                 </Form.Group>
 
                 <Form.Group md="12" as={Col} controlId="validationlastname">
-                  <Form.Label>lastname</Form.Label>
+                  <Form.Label>Lastname</Form.Label>
                   <Form.Control
                     type="text"
-                    name="lastname"
+                    name="lastName"
                     placeholder="lastname"
-                    value={values.lastname}
+                    value={values.lastName}
                     onChange={handleChange}
-                    isValid={touched.lastname && !errors.lastname}
-                    isInvalid={!!errors.lastname}
+                    isValid={touched.lastName && !errors.lastName}
+                    isInvalid={!!errors.lastName}
                   />
-                  <Form.Control.Feedback type="invalid">{errors.lastname}</Form.Control.Feedback>
+                  <Form.Control.Feedback type="invalid">{errors.lastName}</Form.Control.Feedback>
                 </Form.Group>
 
                 <Form.Label>Email</Form.Label>
@@ -101,7 +105,7 @@ const FormRegister = () => {
                 <Form.Group md="12" as={Col} controlId="validationPassword">
                   <Form.Label>Password</Form.Label>
                   <Form.Control
-                    type="text"
+                    type="password"
                     name="password"
                     placeholder="Contraseña"
                     value={values.password}

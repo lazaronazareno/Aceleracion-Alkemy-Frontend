@@ -4,10 +4,10 @@ import axios from 'axios'
 
 const access_token = localStorage.getItem('token')
 
+// eslint-disable-next-line no-undef
 axios.defaults.baseURL = process.env.REACT_APP_baseURL
 
-const headers = {'Authorization' : `Bearer ${access_token}`}
-
+const headers = {'Authorization' : access_token}
 
 const useAxios = ({ url, method, body = null }) => {
 
@@ -17,10 +17,8 @@ const useAxios = ({ url, method, body = null }) => {
 
 	const [loading, setloading] = useState(true)
 
-
 	const fetchData = () => {
-
-		axios[method](url, JSON.parse(headers), JSON.parse(body))
+		axios[method](url, headers, body)
 
 			.then((res) => {
 

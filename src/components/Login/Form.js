@@ -3,6 +3,8 @@ import * as yup from 'yup'
 import { Formik } from 'formik'
 import { Form, Col, Button, Card } from 'react-bootstrap'
 import axios from 'axios'
+import {useDispatch} from 'react-redux'
+import actions from '../../redux/actions'
 
 function FormLogin() {
 	const schema = yup.object().shape({
@@ -10,6 +12,8 @@ function FormLogin() {
 		password: yup.string().required()
 	})
 
+	const dispatch = useDispatch()
+	const {addUser, addAuth} = actions
 	return (
 		<div>
 			<Formik
@@ -35,9 +39,14 @@ function FormLogin() {
 				onSubmit={ async (values, { setSubmitting }) => {
 					setSubmitting(false)
 					const response = await axios.post('http://localhost:4000/auth/login', values)
-					const {token} = response.data
-					localStorage.setItem('token', `Bearer ${token}`)
+					/* 
+					FYI: This should be replace with the axios instance after fix problems
+					*/
 
+					const {token, user} = response.data
+					localStorage.setItem('token', `Bearer ${token}`)
+					dispatch(addAuth(true))
+					dispatch(addUser(user))
 				}}
 			>
 				{({ handleSubmit, handleChange, values, touched, errors }) => (
