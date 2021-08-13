@@ -5,10 +5,12 @@ import { Form, Col, Button, Card } from 'react-bootstrap'
 import axios from 'axios'
 import { useDispatch } from 'react-redux'
 import actions from '../../redux/actions'
+import { useHistory } from 'react-router-dom'
 
 /* eslint indent:"off" */
 const FormRegister = () => {
   const { addUser } = actions
+  const history = useHistory()
   const dispatch = useDispatch()
   const schema = yup.object().shape({
     firstName: yup.string().required(),
@@ -55,6 +57,8 @@ const FormRegister = () => {
           setSubmitting(false)
           const response = await axios.post('http://localhost:4000/auth/register', values)
           dispatch(addUser(response.data.data))
+          localStorage.setItem('token', response.data.token)
+          history.push('/')
         }}
       >
         {({ handleSubmit, handleChange, values, touched, errors }) => (

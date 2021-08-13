@@ -5,6 +5,7 @@ import { Form, Col, Button, Card } from 'react-bootstrap'
 import axios from 'axios'
 import {useDispatch} from 'react-redux'
 import actions from '../../redux/actions'
+import { useHistory } from 'react-router-dom'
 
 function FormLogin() {
 	const schema = yup.object().shape({
@@ -14,6 +15,7 @@ function FormLogin() {
 
 	const dispatch = useDispatch()
 	const {addUser, addAuth} = actions
+	const history = useHistory()
 	return (
 		<div>
 			<Formik
@@ -47,6 +49,7 @@ function FormLogin() {
 					localStorage.setItem('token', `Bearer ${token}`)
 					dispatch(addAuth(true))
 					dispatch(addUser(user))
+					history.push('/')
 				}}
 			>
 				{({ handleSubmit, handleChange, values, touched, errors }) => (
