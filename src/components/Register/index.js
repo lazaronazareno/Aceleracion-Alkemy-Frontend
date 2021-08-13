@@ -55,7 +55,7 @@ const FormRegister = () => {
         }}
         onSubmit={async(values, { setSubmitting }) => {
           setSubmitting(false)
-          const response = await axios.post('http://localhost:4000/auth/register', values)
+          const response = await axios.post('http://localhost:4000/users/register', values)
           dispatch(addUser(response.data.data))
           localStorage.setItem('token', response.data.token)
           history.push('/')

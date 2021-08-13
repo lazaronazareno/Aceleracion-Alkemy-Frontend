@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 
 import axios from 'axios'
 
@@ -8,47 +8,34 @@ axios.defaults.baseURL = process.env.REACT_APP_baseURL
 
 const headers = {'Authorization' : access_token}
 
-const useAxios = ({ url, method, body = null }) => {
+const useAxios = () => {
 
 	const [response, setResponse] = useState(null)
 
-	const [error, setError] = useState('')
+	const [error, setError] = useState(null)
 
-	const [loading, setloading] = useState(true)
+	const [loading, setloading] = useState(false)
 
-	const fetchData = () => {
-		axios[method](url, headers, body)
+	const fetchData = ({ url, method, body = null }) => {
+		setloading(true)
+		console.log({ body })
+		axios[method](url, body, headers)
 
 			.then((res) => {
-
 				setResponse(res.data)
-
 			})
 
 			.catch((err) => {
-
 				setError(err)
-
 			})
 
 			.finally(() => {
-
 				setloading(false)
-
 			})
 
 	}
 
-
-	useEffect(() => {
-
-		fetchData()
-
-	}, [method, url, body, headers])
-
-
-	return { response, error, loading }
-
+	return { response, error, loading, fetchData }
 }
 
 

@@ -1,6 +1,5 @@
 import React from 'react'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
-import TestApp from './shared/testApp'
 import NotFound from './shared/testNotFound'
 import './App.css'
 import Home from './shared/Home/Home'
@@ -15,6 +14,7 @@ import UserProfile from './components/UserProfile'
 import actions from './redux/actions'
 import {useDispatch} from 'react-redux'
 import axios from 'axios'
+import FormNews from './components/NewsForm'
 
 function App() {
 	const dispatch = useDispatch()
@@ -49,7 +49,7 @@ function App() {
 					</Route>
 					<Route exact path='/login' component={Login} />
 					<Route exact path='/register' component={Register} />
-					<Route exact path="/test" component={TestApp} />
+					<Route exact path="/test" component={FormNews} />
 					<Route exact path="/novedades" component={NewList} />
 					<Route exact path="/novedades/:id" component={NewsDetails} />
 					<Route exact path="/editUser" component={EditUser} />

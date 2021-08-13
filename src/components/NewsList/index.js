@@ -1,54 +1,62 @@
 import React, { useState, useEffect } from 'react'
-import axios from 'axios'
 import { Link } from 'react-router-dom'
 import Moment from 'moment'
+import useAxios from '../../libs/axiosInstance'
 import { Card, Col, Row, Container } from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './styles.css'
 
-/* eslint indent:"off" */
+const httpConfig = {
+	url: '/news',
+	method: 'get'
+}
+
 export const NewList  = () => {
+	const { response, error, loading, fetchData } = useAxios()
 
-  const [news, setNews] = useState([])
+	const [news, setNews] = useState([])
 
-  useEffect( () => {
+	useEffect(() => {
+		if (!loading && response) {
+			setNews(response.data)
+		}
+	},[loading, response, error])
 
-    const config = {
-      url: '/news',
-      method: 'get',
-      baseURL: 'http://localhost:4000',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-Requested-With': 'XMLHttpRequest'
-      }
-    }
+	useEffect(() => {
+		fetchData({ url: httpConfig.url, method: httpConfig.method })
+	}, [])
 
-    axios.request(config).then( ({ data }) => setNews(data.entries) )
+	if (error) {
+		return (
+			<Container>
+				<h1>Hubo un error al traer los datos desde el servidor...</h1>
+			</Container>
+		)
+	}
 
-  },[])
-  
-  return(
-    <>
-      <Container>
-        <Row>
-          {
-            news.map( ({id, name, image, createdAt } ) => {
-              return(
-                  <Col md={4} key={id}>
-                    <Card className="shadow">
-                      <Card.Img variant="top" src={ image } />
-                      <Card.Body>
-                        <Card.Title className="left">{name}</Card.Title>
-                        <Card.Text className="left date">Creado el { Moment(createdAt).format('DD-MM-YYYY')}</Card.Text>
-                        <Link className="btn btn-primary" to={`/novedades/${id}`}>See news in detail</Link>
-                      </Card.Body>
-                    </Card>
-                  </Col>
-              )
-            })
-          }
-        </Row>
-      </Container>
-    </>
-  )
+	return(
+		<Container>
+			{loading ?
+				<h1>Cargando...</h1> :
+				<Row>
+					{
+						news.map(({name, image, createdAt }, id) => {
+							return(
+								<Col md={4} key={id}>
+									<Card className="shadow">
+										<Card.Img variant="top" src={ image } />
+										<Card.Body>
+											<Card.Title className="left">{name}</Card.Title>
+											<Card.Text className="left date">Creado el { Moment(createdAt).format('DD-MM-YYYY')}</Card.Text>
+											<Link className="btn btn-primary" to={`/novedades/${id}`}>Ver detalle</Link>
+										</Card.Body>
+									</Card>
+								</Col>
+							)
+						})
+					}
+				</Row> 
+			}
+		</Container>
+	)
 }
