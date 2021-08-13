@@ -4,7 +4,6 @@ import axios from 'axios'
 
 const access_token = localStorage.getItem('token')
 
-// eslint-disable-next-line no-undef
 axios.defaults.baseURL = process.env.REACT_APP_baseURL
 
 const headers = {'Authorization' : access_token}

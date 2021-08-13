@@ -1,6 +1,6 @@
 module.exports = {
 	'env': {
-		'browser': true,
+		'node': true,
 		'es6': true
 	},
 	'extends': [
@@ -9,7 +9,10 @@ module.exports = {
 	],
 	'globals': {
 		'Atomics': 'readonly',
-		'SharedArrayBuffer': 'readonly'
+		'SharedArrayBuffer': 'readonly',
+		"localStorage": true,
+		"document": true,
+		"alert": true
 	},
 	'parserOptions': {
 		'ecmaFeatures': {
