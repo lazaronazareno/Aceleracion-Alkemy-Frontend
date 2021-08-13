@@ -20,7 +20,7 @@ function UserProfile() {
 				<ListGroup.Item className="fs-1 text-break">Apellido: {user.surName}</ListGroup.Item>
 				<ListGroup.Item className="fs-1 text-break">Email: {user.mail}</ListGroup.Item>
 			</ListGroup>
-			<Container className="translate d-flex justify-content-evenly">
+			<Container className="translate buttons d-flex justify-content-evenly">
 				<Button as={Link} to='/editUser' className="btn-info" size="lg">Editar Datos</Button>
 				<Button variant="danger" onClick={() => alert('Cuenta Eliminada(añadir accion en el futuro)')} size="lg">Eliminar Cuenta</Button>
 			</Container>

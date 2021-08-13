@@ -10,6 +10,7 @@ import New from './components/New'
 import Login from './components/Login/Form'
 import Footer from './shared/Footer'
 import Register from './components/Register'
+import UserProfile from './components/UserProfile'
 import actions from './redux/actions'
 import {useDispatch} from 'react-redux'
 import axios from 'axios'
@@ -49,6 +50,7 @@ function App() {
 					<Route exact path='/register' component={Register} />
 					<Route exact path="/test" component={TestApp} />
 					<Route exact path="/novedades" component={NewList} />
+					<Route exact path="/user" component={UserProfile} />
 					<Route exact path="/novedades/:id" component={New} />
 					<Route exact path='/register' component={Register} />
 					<Route component={NotFound}/>

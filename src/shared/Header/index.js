@@ -2,10 +2,10 @@ import React from 'react'
 import { Navbar, Nav, Container, Button } from 'react-bootstrap'
 import { Link, useLocation } from 'react-router-dom'
 import './styles.css' // This is for style variants used
+import { useSelector } from 'react-redux'
 
 export const Header = () => {
-	const isLogged = false
-
+	const isAuth = useSelector((state) => state.auth.isAuth)	
 	// FYI: Data for navbar links:
 	const infoNavbarNL = [
 		{
@@ -53,8 +53,8 @@ export const Header = () => {
 					<Navbar.Toggle aria-controls="basic-navbar-nav" />
 					<Navbar.Collapse id="basic-navbar-nav">
 						<Nav className="me-auto" variant="monserrat">
-							{!isLogged
-								? infoNavbarNL.map((item) => {
+							{!isAuth
+								? infoNavbarL.map((item) => {
 									return (
 										<Nav.Item className={pathname === item.link ? 'active' : ''} key={item.title}>
 											<Nav.Link as={Link} variant="test" to={`${item.link}`}>
@@ -63,9 +63,9 @@ export const Header = () => {
 										</Nav.Item>
 									)
 								})
-								: infoNavbarL.map((item) => {
+								: infoNavbarNL.map((item) => {
 									return (
-										<Nav.Item key={item.title}>
+										<Nav.Item className={pathname === item.link ? 'active' : ''} key={item.title}>
 											<Nav.Link variant="test" href={`${item.link}`}>
 												{item.title}
 											</Nav.Link>
@@ -73,7 +73,7 @@ export const Header = () => {
 									)
 								})}
 						</Nav>
-						{!isLogged && (
+						{!isAuth ?
 							<Nav className="me-auto" variant="btn-container">
 								<Button as={Link} to="/login" variant="blue" size="sm">
                   Login
@@ -82,7 +82,15 @@ export const Header = () => {
                   Registrarse
 								</Button>
 							</Nav>
-						)}
+							:   <Nav className="me-auto" variant="btn-container">
+								<Button variant="blue" size="sm">
+						Desloguearse
+								</Button>
+								<Button as={Link} to="/user" variant="primary" size="sm">
+						Perfil
+								</Button>
+							</Nav>
+						}
 					</Navbar.Collapse>
 				</Container>
 			</Navbar>
