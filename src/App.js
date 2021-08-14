@@ -9,13 +9,13 @@ import Login from './components/Login/Form'
 import Footer from './shared/Footer'
 import Register from './components/Register'
 import { TransitionGroup, CSSTransition } from 'react-transition-group'
-
 import NewsDetails from './components/NewsDetails'
 import EditUser from './components/editUser/editUser'
 import UserProfile from './components/UserProfile'
 import actions from './redux/actions'
 import { useDispatch } from 'react-redux'
 import axios from 'axios'
+import BackofficeNewsList from './components/BackofficeNewsList'
 import FormNews from './components/NewsForm'
 
 function App() {
@@ -66,7 +66,7 @@ function App() {
 										<Route exact path="/novedades/:id" component={NewsDetails} />
 										<Route exact path="/editUser" component={EditUser} />
 										<Route exact path="/user" component={UserProfile} />
-										<Route exact path='/register' component={Register} />
+										<Route exact path='/backoffice/novedades' component={BackofficeNewsList} />	
 										<Route component={NotFound} />
 									</Switch>
 								</div>
