@@ -48,7 +48,8 @@ module.exports = {
 			'error',
 			'never'
 		],
-		'prefer-arrow-callback': [ "error", { "allowNamedFunctions": false } ]
+		'prefer-arrow-callback': [ "error", { "allowNamedFunctions": false } ],
+		'react/prop-types': 'off'
 	},
 	overrides: [
 		{
