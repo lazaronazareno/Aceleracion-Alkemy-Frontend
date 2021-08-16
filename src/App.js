@@ -40,7 +40,7 @@ function App() {
 		dispatch(addAuth(true))
 		getAuthUser()
 	}
-
+	
 	return (
 		<div className="App">
 			<BrowserRouter>

@@ -1,0 +1,9 @@
+.form-general {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.form-group {
+  display: block;
+}
