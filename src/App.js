@@ -17,6 +17,7 @@ import { useDispatch } from 'react-redux'
 import axios from 'axios'
 import BackofficeNewsList from './components/BackofficeNewsList'
 import FormNews from './components/NewsForm'
+import Contact from './components/Contact'
 
 function App() {
 	const dispatch = useDispatch()
@@ -67,6 +68,7 @@ function App() {
 										<Route exact path="/editUser" component={EditUser} />
 										<Route exact path="/user" component={UserProfile} />
 										<Route exact path='/backoffice/novedades' component={BackofficeNewsList} />	
+										<Route exact path='/contacto' component={Contact} />	
 										<Route component={NotFound} />
 									</Switch>
 								</div>

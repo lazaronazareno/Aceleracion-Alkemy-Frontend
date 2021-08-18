@@ -11,7 +11,7 @@ const httpConfig = {
 }
 
 function BackofficeNewsList() {
-	const { response, error, loading } = useAxios({ url: httpConfig.url, method: httpConfig.method })
+	const { response, error, loading, fetchData } = useAxios()
 	const [news, setNews] = useState([])
 
 	useEffect( () => {
@@ -19,6 +19,10 @@ function BackofficeNewsList() {
 			setNews(response.data)
 		}
 	},[loading, response, error])
+
+	useEffect(() => {
+		fetchData({ url: httpConfig.url, method: httpConfig.method })
+	}, [])
     
 	if (error) {
 		return (
@@ -27,7 +31,6 @@ function BackofficeNewsList() {
 			</Container>
 		)
 	}
-    
 	return(
 		<Container>
 			{loading ?
