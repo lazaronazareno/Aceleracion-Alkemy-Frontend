@@ -1,0 +1,7 @@
+td{
+  text-align: left !important;
+}
+
+tbody td:last-child{
+  text-align: center !important;
+}
