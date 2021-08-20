@@ -20,6 +20,7 @@ import FormNews from './components/NewsForm'
 import BackofficeContacts from './components/BackofficeContacts/index'
 import BackofficeActivitiesList from './components/BackofficeActivitiesList/index'
 import Contact from './components/Contact'
+import BackofficeTestimonials from './components/BackofficeTestimonials'
 import BackofficeHome from './components/BackofficeHome'
 
 function App() {
@@ -72,6 +73,7 @@ function App() {
 										<Route exact path='/backoffice/contacts' component={BackofficeContacts} />	
 										<Route exact path='/backoffice/actividades' component={BackofficeActivitiesList} />
 										<Route exact path='/contacto' component={Contact} />	
+										<Route exact path='/backoffice/testimonios' component={BackofficeTestimonials} />	
 										<Route exact path='/backoffice/inicio' component={BackofficeHome} />	
 										<Route component={NotFound} />
 									</Switch>
