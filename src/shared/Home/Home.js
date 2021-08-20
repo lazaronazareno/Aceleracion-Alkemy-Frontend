@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import './HomeStyles.scss'
 import PropTypes from 'prop-types'
 import Slider from '../../features/Slider'
+import { useSelector } from 'react-redux'
 
 const newsTest = [
 	{
@@ -31,7 +32,8 @@ const newsTest = [
 		text: 'Some quick example text to build on the card title and make up the bulk of the card\'s content.',
 	},
 ]
-function Home(props) {
+function Home() {
+	const welcomeMessage = useSelector((state) => state.welcomeText.welcomeText)
 	const newsList = newsTest.slice(-4) //FYI: ingresar lista de novedades en el slice
 	return (
 		<Container className="p-0" fluid>
@@ -40,7 +42,7 @@ function Home(props) {
 			</Container>
 			<Container>
 				<Row className="justify-content-center mb-4">
-					<h1>{props.text}</h1>
+					<h1>{welcomeMessage}</h1>
 				</Row>
 			</Container>
 			<Container className="yellow" fluid>

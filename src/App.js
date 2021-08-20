@@ -20,6 +20,7 @@ import FormNews from './components/NewsForm'
 import BackofficeContacts from './components/BackofficeContacts/index'
 import BackofficeActivitiesList from './components/BackofficeActivitiesList/index'
 import Contact from './components/Contact'
+import BackofficeHome from './components/BackofficeHome'
 
 function App() {
 	const dispatch = useDispatch()
@@ -59,9 +60,7 @@ function App() {
 							>
 								<div>
 									<Switch>
-										<Route exact path="/" >
-											<Home text='Mensaje de bienvenida de Prueba' />
-										</Route>
+										<Route exact path="/" component={Home} />
 										<Route exact path='/login' component={Login} />
 										<Route exact path='/register' component={Register} />
 										<Route exact path="/test" component={FormNews} />
@@ -73,6 +72,7 @@ function App() {
 										<Route exact path='/backoffice/contacts' component={BackofficeContacts} />	
 										<Route exact path='/backoffice/actividades' component={BackofficeActivitiesList} />
 										<Route exact path='/contacto' component={Contact} />	
+										<Route exact path='/backoffice/inicio' component={BackofficeHome} />	
 										<Route component={NotFound} />
 									</Switch>
 								</div>
