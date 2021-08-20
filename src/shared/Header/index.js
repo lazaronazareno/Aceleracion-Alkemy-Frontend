@@ -3,9 +3,11 @@ import { Navbar, Nav, Container, Button } from 'react-bootstrap'
 import { Link, useLocation } from 'react-router-dom'
 import './styles.css' // This is for style variants used
 import { useSelector } from 'react-redux'
+import { Backoffice } from '../../components/BackofficeMenu'
 
 export const Header = () => {
 	const isAuth = useSelector((state) => state.auth.isAuth)	
+	const roleId = useSelector((state) => state.user.roleId)	
 	// FYI: Data for navbar links:
 	const infoNavbarNL = [
 		{
@@ -89,6 +91,7 @@ export const Header = () => {
 								<Button as={Link} to="/user" variant="primary" size="sm">
 						Perfil
 								</Button>
+								<Backoffice roleId={roleId} />
 							</Nav>
 						}
 					</Navbar.Collapse>

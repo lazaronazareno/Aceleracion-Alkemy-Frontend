@@ -41,7 +41,7 @@ function EditUser() {
 						name="name"
 						placeholder="nombre"
 					/>
-					<label htmlFor="floatingName">{userLogged.firstName === '' ? 'Nombre'  : (userLogged.name)}</label>
+					<label htmlFor="floatingName">{userLogged.firstName === '' ? 'Nombre'  : (userLogged.firstName)}</label>
 					<span className="text-danger d-flex fs-4">
 						<ErrorMessage name="name" />
 					</span>
