@@ -56,12 +56,12 @@ function FormLogin() {
 
 					<Form noValidate onSubmit={handleSubmit}>
 						<Card style={{ width: '24rem' }} className="mx-auto mt-5">
-							<Card.Title className="mt-2">Iniciar sesión</Card.Title>
+							<Card.Title className="mt-2">Iniciar sesión.</Card.Title>
 							<Card.Body>
 								<Form.Group md="12" as={Col} controlId="validationEmail">
 									<Form.Label>Email</Form.Label>
 									<Form.Control
-										type="text"
+										type="email"
 										name="email"
 										placeholder="Email"
 										value={values.email}
@@ -74,9 +74,9 @@ function FormLogin() {
 									</Form.Control.Feedback>
 								</Form.Group>
 								<Form.Group md="12" as={Col} controlId="validationPassword">
-									<Form.Label>Password</Form.Label>
+									<Form.Label>Contraseña</Form.Label>
 									<Form.Control
-										type="text"
+										type="password"
 										name="password"
 										placeholder="Contraseña"
 										value={values.password}

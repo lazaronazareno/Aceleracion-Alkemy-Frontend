@@ -64,14 +64,14 @@ const FormRegister = () => {
         {({ handleSubmit, handleChange, values, touched, errors }) => (
           <Form noValidate onSubmit={handleSubmit}>
             <Card style={{ width: '24rem' }} className="mx-auto mt-5">
-              <Card.Title className="mt-2">Iniciar sesión</Card.Title>
+              <Card.Title className="mt-2">Registro.</Card.Title>
               <Card.Body>
                 <Form.Group md="12" as={Col} controlId="validationName">
-                  <Form.Label>Name</Form.Label>
+                  <Form.Label>Nombre</Form.Label>
                   <Form.Control
                     type="text"
                     name="firstName"
-                    placeholder="Name"
+                    placeholder="Nombre"
                     value={values.firstName}
                     onChange={handleChange}
                     isValid={touched.firstName && !errors.firstName}
@@ -81,11 +81,11 @@ const FormRegister = () => {
                 </Form.Group>
 
                 <Form.Group md="12" as={Col} controlId="validationlastname">
-                  <Form.Label>Lastname</Form.Label>
+                  <Form.Label>Apellido</Form.Label>
                   <Form.Control
                     type="text"
                     name="lastName"
-                    placeholder="lastname"
+                    placeholder="Apellido"
                     value={values.lastName}
                     onChange={handleChange}
                     isValid={touched.lastName && !errors.lastName}
@@ -96,7 +96,7 @@ const FormRegister = () => {
 
                 <Form.Label>Email</Form.Label>
                 <Form.Control
-                  type="text"
+                  type="email"
                   name="email"
                   placeholder="Email"
                   value={values.email}
@@ -107,7 +107,7 @@ const FormRegister = () => {
                 <Form.Control.Feedback type="invalid">{errors.email}</Form.Control.Feedback>
 
                 <Form.Group md="12" as={Col} controlId="validationPassword">
-                  <Form.Label>Password</Form.Label>
+                  <Form.Label>Contraseña</Form.Label>
                   <Form.Control
                     type="password"
                     name="password"

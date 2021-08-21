@@ -4,8 +4,14 @@ import { Link, useLocation } from 'react-router-dom'
 import './styles.css' // This is for style variants used
 import { useSelector } from 'react-redux'
 import { Backoffice } from '../../components/BackofficeMenu'
+import { useHistory } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import actions from '../../redux/actions'
 
 export const Header = () => {
+	const history = useHistory()
+	const { addAuth } = actions
+    const dispatch = useDispatch()
 	const isAuth = useSelector((state) => state.auth.isAuth)	
 	const roleId = useSelector((state) => state.user.roleId)	
 	// FYI: Data for navbar links:
@@ -85,7 +91,11 @@ export const Header = () => {
 								</Button>
 							</Nav>
 							:   <Nav className="me-auto" variant="btn-container">
-								<Button variant="blue" size="sm">
+								<Button variant="blue" size="sm" onClick={() => {
+									localStorage.removeItem('token')
+									dispatch(addAuth(false))
+									history.push('/')}
+									}>
 						Desloguearse
 								</Button>
 								<Button as={Link} to="/user" variant="primary" size="sm">
