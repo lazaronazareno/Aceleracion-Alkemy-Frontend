@@ -8,7 +8,7 @@ const initialState = {
 	email:'',
 	firstName: '',
 	lastName: '',
-	roleId:''
+	routes: []
 }
 
 const userReducer = createReducer(initialState, (builder) => {

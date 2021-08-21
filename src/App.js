@@ -1,32 +1,40 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
-import NotFound from './shared/testNotFound'
 import './App.css'
-import Home from './shared/Home/Home'
 import { Header } from './shared/Header'
-import { NewList } from './components/NewsList'
-import Login from './components/Login/Form'
 import Footer from './shared/Footer'
-import Register from './components/Register'
 import { TransitionGroup, CSSTransition } from 'react-transition-group'
+import actions from './redux/actions'
+import { useDispatch, useSelector } from 'react-redux'
+import axios from 'axios'
+import Home from './shared/Home/Home'
+import NotFound from './shared/testNotFound'
 import NewsDetails from './components/NewsDetails'
+import { NewList } from './components/NewsList'
 import EditUser from './components/editUser/editUser'
 import UserProfile from './components/UserProfile'
-import actions from './redux/actions'
-import { useDispatch } from 'react-redux'
-import axios from 'axios'
-import BackofficeNewsList from './components/BackofficeNewsList'
-import FormNews from './components/NewsForm'
-import BackofficeContacts from './components/BackofficeContacts/index'
-import BackofficeActivitiesList from './components/BackofficeActivitiesList/index'
 import Contact from './components/Contact'
-import { UserList } from './components/UserLists'
-import BackofficeTestimonials from './components/BackofficeTestimonials'
-import BackofficeHome from './components/BackofficeHome'
+import BackofficeActivitiesList from './components/BackofficeActivitiesList'
+import BackofficeNewsList from './components/BackofficeNewsList'
+import Login from './components/Login/Form'
+import Register from './components/Register'
+
 
 function App() {
 	const dispatch = useDispatch()
 	const { addAuth, addUser } = actions
+	const isAuth = useSelector(state => state.auth.isAuth)
+	const myRoutes = useSelector(state => state.user.routes)
+	const components = {
+		'/novedades': NewList,
+		'/novedades/:id': NewsDetails, 
+		'/editUser': EditUser,
+		'/user': UserProfile,
+		'/contacto': Contact,
+		'/backoffice/novedades': BackofficeNewsList,
+		'/backoffice/actividades': BackofficeActivitiesList
+	}
+
 
 	const getAuthUser = async () => {
 		const user = await axios.get('http://localhost:4000/auth/me', {
@@ -42,10 +50,12 @@ function App() {
 		dispatch(addUser(user.data))
 	}
 
-	if (localStorage.getItem('token')) {
-		dispatch(addAuth(true))
-		getAuthUser()
-	}
+	useEffect(() => {
+		if (localStorage.getItem('token')) {
+			dispatch(addAuth(true))
+			getAuthUser()
+		}
+	}, [localStorage.getItem('token')])
 	
 	return (
 		<div className="App">
@@ -62,21 +72,21 @@ function App() {
 							>
 								<div>
 									<Switch>
-										<Route exact path="/" component={Home} />
-										<Route exact path='/login' component={Login} />
-										<Route exact path='/register' component={Register} />
-										<Route exact path="/test" component={FormNews} />
-										<Route exact path="/novedades" component={NewList} />
-										<Route exact path="/novedades/:id" component={NewsDetails} />
-										<Route exact path="/editUser" component={EditUser} />
-										<Route exact path="/user" component={UserProfile} />
-										<Route exact path='/backoffice/novedades' component={BackofficeNewsList} />	
-										<Route exact path='/backoffice/contacts' component={BackofficeContacts} />	
-										<Route exact path='/backoffice/actividades' component={BackofficeActivitiesList} />
-										<Route exact path='/contacto' component={Contact} />	
-										<Route exact path='/backoffice/usuarios' component={UserList} />	
-										<Route exact path='/backoffice/testimonios' component={BackofficeTestimonials} />	
-										<Route exact path='/backoffice/inicio' component={BackofficeHome} />	
+										<Route exact path="/" >
+											<Home text='Mensaje de bienvenida de Prueba' />
+										</Route>
+										{
+											isAuth ? 
+												myRoutes.map((route, i) => {
+													return (
+														<Route key={i} exact path={route} component={components[route]} />
+													)
+												})
+												: <>
+													<Route exact path='/login' component={Login} />
+													<Route exact path='/register' component={Register} /> 
+												</>
+										}
 										<Route component={NotFound} />
 									</Switch>
 								</div>
