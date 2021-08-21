@@ -7,18 +7,23 @@ import './styles.scss'
 
 function NewsDetails() {
 	const { id } = useParams()
-	const { response, error, loading } = useAxios({
-		method: 'get',
-		url: `/news/${id}`,
-	})
+	const { response, error, loading, fetchData } = useAxios()
 	const [data, setData] = useState([])
-	console.log(data)
+
+	const httpConfig = {
+		url: `/news/${id}`,
+		method: 'get'
+	}	
 
 	useEffect(() => {
 		if (!loading && response ) {
 			setData([response])
 		}
 	}, [loading, response, error])
+
+	useEffect(() => {
+		fetchData({url: httpConfig.url, method: httpConfig.method})
+	}, [])
 	
 	if (error) {
 		return (
