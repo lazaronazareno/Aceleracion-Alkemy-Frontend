@@ -1,34 +1,52 @@
-import React from 'react'
-import {Navbar, Nav, Container, Card} from 'react-bootstrap'
+import React, { useState, useEffect } from 'react'
+import {Navbar, Nav, Container} from 'react-bootstrap'
+import useAxios from '../../libs/axiosInstance'
 import styles from './styles.css'
 
-const Footer = () => {
+const httpConfig = {
+	url: '/organization/public',
+	method: 'get'
+}
 
+const Footer = () => {
+	const { response, error, loading, fetchData } = useAxios()
+	const [socialMedia, setSocialMedia] = useState([])
+
+	useEffect( () => {
+		if (!loading && response) {
+			setSocialMedia(response.data)
+		}
+	},[loading, response, error])
+
+	useEffect(() => {
+		fetchData({ url: httpConfig.url, method: httpConfig.method })
+	}, [])
+	
 	// FYI: Data for footer links:
 	const infoFooter = [
 		{
 			title: 'Noticias',
-			link: '/#noticias'
+			link: '/noticias'
 		},
 		{
 			title: 'Actividades',
-			link: '/#actividades'
+			link: '/actividades'
 		},
 		{
 			title: 'Novedades',
-			link: '/#novedades'
+			link: '/novedades'
 		},
 		{
 			title: 'Testimonios',
-			link: '/#testimonios'
+			link: '/testimonios'
 		},
 		{
 			title: 'Nosotros',
-			link: '/#nosotros'
+			link: '/nosotros'
 		},
 		{
 			title: 'Contacto',
-			link: '/#contacto'
+			link: '/contacto'
 		}
 	]
    
@@ -42,69 +60,54 @@ const Footer = () => {
 
 	const infoFooterLinks = splitFooterLinks(infoFooter,2)
 
-	const socialMediahref={
-		instagram:'https://www.instagram.com',
-		twitter:'https://twitter.com/',
-		facebook:'https://facebook.com/',
-		whatsapp:'https://web.whatsapp.com/'
-	}
-
 	return (
 		<> 
-			<Card.Footer className='footer'>
+			<Container bg="light" fluid className='d-flex flex-column position-relative bottom-0 border-top p-0 mt-2'>
 				<Navbar bg="light" variant="light" expand='lg'>
-					<Container>
-						<div className='column1'>
-							<Nav className='me-auto' variant='monserrat'>
-								{ infoFooterLinks[0].map(item => {
-									return (
-										<Nav.Item  key={item.title}  className='links'>
-											<Nav.Link variant='test' href={`${item.link}`}>{item.title}</Nav.Link>
-										</Nav.Item>
-									)
-								})
-								}
-							</Nav> 
-						</div>
-						<div className='column'>
-							<Navbar.Brand href="/#">
-								<img src='images/assets/logo-header-2.svg' alt='sample-logo'/>
-								<label>   </label>
-								<img src='images/assets/logo-header.svg' alt='logo' />
-							</Navbar.Brand> 
-						</div> 
-						<div className='column' >
-							<Nav className='me-auto' variant='monserrat'>
-								{ infoFooterLinks[1].map(item => {
-									return (
-										<Nav.Item  key={item.title} className='links'>
-											<Nav.Link variant='test' href={`${item.link}`}>{item.title}</Nav.Link>
-										</Nav.Item>
-									)
-								})
-								}
-							</Nav> 
-						</div>
-                    
+					<Container className="border-bottom">
+						<Nav variant='monserrat'>
+							{ infoFooterLinks[0].map(item => {
+								return (
+									<Nav.Item  key={item.title}  className='links'>
+										<Nav.Link variant='test' href={`${item.link}`}>{item.title}</Nav.Link>
+									</Nav.Item>
+								)
+							})
+							}
+						</Nav> 
+						<Navbar.Brand href="/">
+							<img src='images/assets/logo-header-2.svg' alt='sample-logo'/>
+							<label>   </label>
+							<img src='images/assets/logo-header.svg' alt='logo' />
+						</Navbar.Brand> 
+						<Nav variant='monserrat'>
+							{ infoFooterLinks[1].map(item => {
+								return (
+									<Nav.Item  key={item.title} className='links'>
+										<Nav.Link variant='test' href={`${item.link}`}>{item.title}</Nav.Link>
+									</Nav.Item>
+								)
+							})
+							}
+						</Nav>                     
 					</Container>
 				</Navbar>
-				<hr className='hr'/>
 				<div className={styles.links}>
-					<a href= {socialMediahref.instagram} >
+					<a href= {socialMedia.linkInstagram} >
 						<ion-icon name="logo-instagram" size="large" ></ion-icon>   
 					</a> 
-					<a href={socialMediahref.twitter} >
+					<a href={socialMedia.linkTwitter} >
 						<ion-icon name="logo-twitter" size="large" ></ion-icon>   
 					</a> 
-					<a href={socialMediahref.facebook}>
+					<a href={socialMedia.linkFacebook}>
 						<ion-icon name="logo-facebook" size="large"  ></ion-icon>   
 					</a> 
-					<a href={socialMediahref.whatsapp}>
+					<a href={socialMedia.linkWhatsapp}>
 						<ion-icon name="logo-whatsapp" size="large" ></ion-icon>   
 					</a> 
 				</div> 
 				<p className={styles.p}> 2021 by Alkemy. All rights reserved </p>
-			</Card.Footer>
+			</Container>
 		</>
 	)
 }
