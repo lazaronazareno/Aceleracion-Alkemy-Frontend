@@ -11,7 +11,7 @@ import actions from '../../redux/actions'
 export const Header = () => {
 	const history = useHistory()
 	const { addAuth } = actions
-    const dispatch = useDispatch()
+	const dispatch = useDispatch()
 	const isAuth = useSelector((state) => state.auth.isAuth)	
 	const roleId = useSelector((state) => state.user.roleId)	
 	// FYI: Data for navbar links:
@@ -94,8 +94,9 @@ export const Header = () => {
 								<Button variant="blue" size="sm" onClick={() => {
 									localStorage.removeItem('token')
 									dispatch(addAuth(false))
-									history.push('/')}
-									}>
+									history.push('/')
+								}
+								}>
 						Desloguearse
 								</Button>
 								<Button as={Link} to="/user" variant="primary" size="sm">
