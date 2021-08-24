@@ -6,9 +6,8 @@ const access_token = localStorage.getItem('token')
 
 // eslint-disable-next-line no-undef
 axios.defaults.baseURL = process.env.REACT_APP_BASE_URL
+axios.defaults.headers['authorization'] = access_token
 
-
-const headers = {'Authorization' : access_token}
 
 const useAxios = () => {
 
@@ -21,7 +20,7 @@ const useAxios = () => {
 	const fetchData = ({ url, method, body = null }) => {
 		setloading(true)
 		console.log({ body })
-		axios[method](url, body, headers)
+		axios[method](url,body)
 
 			.then((res) => {
 				setResponse(res.data)

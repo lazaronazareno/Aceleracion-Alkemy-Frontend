@@ -7,6 +7,7 @@ export default configureStore({
 		counter: counterReducer,
 		user: reducers.userReducer,
 		auth: reducers.authReducer,
-		welcomeText : reducers.welcomeTextReducer
+		welcomeText : reducers.welcomeTextReducer,
+		category: reducers.categoryReducer
 	},
 })

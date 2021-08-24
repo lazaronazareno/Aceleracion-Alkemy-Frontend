@@ -19,6 +19,7 @@ import BackofficeNewsList from './components/BackofficeNewsList'
 import Login from './components/Login/Form'
 import Register from './components/Register'
 
+import BackofficeCategories from './components/BackofficeCategories'
 
 function App() {
 	const dispatch = useDispatch()
@@ -75,6 +76,7 @@ function App() {
 										<Route exact path="/" >
 											<Home text='Mensaje de bienvenida de Prueba' />
 										</Route>
+										<Route exact path='/backoffice/categories' component={BackofficeCategories} />
 										{
 											isAuth ? 
 												myRoutes.map((route, i) => {
