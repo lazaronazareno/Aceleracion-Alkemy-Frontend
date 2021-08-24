@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import actions from '../../redux/actions'
 import { Table, Button } from 'react-bootstrap'
 
-const {addCategories} = actions
+const {addCategories, deleteCategory} = actions
 
 const BackofficeCategories = () => {
 	const httpConfig = {
@@ -33,7 +33,13 @@ const BackofficeCategories = () => {
 	}, [response, error])
 
 	const handleDelete = async (id) => {
-		console.log(id)
+		const httpConfigDelete = {
+			url: `/categories/${id}`,
+			method: 'delete'
+		}
+
+		dispatch(deleteCategory(id))
+		await fetchData(httpConfigDelete)
 	}
 
 	return (

@@ -49,7 +49,6 @@ export const Header = () => {
 	const location = useLocation()
 	const { pathname } = location
 
-	const infoNavbarL = []
 	return (
 		<>
 			<Navbar bg="light" variant="light" expand="lg">
@@ -61,25 +60,15 @@ export const Header = () => {
 					<Navbar.Toggle aria-controls="basic-navbar-nav" />
 					<Navbar.Collapse id="basic-navbar-nav">
 						<Nav className="me-auto" variant="monserrat">
-							{!isAuth
-								? infoNavbarL.map((item) => {
-									return (
-										<Nav.Item className={pathname === item.link ? 'active' : ''} key={item.title}>
-											<Nav.Link as={Link} variant="test" to={`${item.link}`}>
-												{item.title}
-											</Nav.Link>
-										</Nav.Item>
-									)
-								})
-								: infoNavbarNL.map((item) => {
-									return (
-										<Nav.Item className={pathname === item.link ? 'active' : ''} key={item.title}>
-											<Nav.Link variant="test" href={`${item.link}`}>
-												{item.title}
-											</Nav.Link>
-										</Nav.Item>
-									)
-								})}
+							{infoNavbarNL.map((item) => {
+								return (
+									<Nav.Item className={pathname === item.link ? 'active' : ''} key={item.title}>
+										<Nav.Link as={Link} variant="test" to={`${item.link}`}>
+											{item.title}
+										</Nav.Link>
+									</Nav.Item>
+								)
+							})}
 						</Nav>
 						{!isAuth ?
 							<Nav className="me-auto" variant="btn-container">

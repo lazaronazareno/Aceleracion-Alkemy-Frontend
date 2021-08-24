@@ -47,8 +47,10 @@ function App() {
 			FYI: Here we need sent the request with axios instance.
 			For test I use axios dependency directly
 		*/
+		if (user.ok) {
+			dispatch(addUser(user.data))
 
-		dispatch(addUser(user.data))
+		}
 	}
 
 	useEffect(() => {
@@ -76,20 +78,29 @@ function App() {
 										<Route exact path="/" >
 											<Home text='Mensaje de bienvenida de Prueba' />
 										</Route>
+
 										<Route exact path='/backoffice/categories' component={BackofficeCategories} />
-										{
-											isAuth ? 
-												myRoutes.map((route, i) => {
-													return (
-														<Route key={i} exact path={route} component={components[route]} />
-													)
-												})
-												: <>
-													<Route exact path='/login' component={Login} />
-													<Route exact path='/register' component={Register} /> 
-												</>
+
+
+										{myRoutes.map((route, i) => {
+											return (
+												<Route key={i} exact path={route} component={components[route]} />
+											)
+										})}
+
+										
+										{	
+											!isAuth && 
+											<>
+												<Route exact path='/login' component={Login} />
+												<Route exact path='/register' component={Register} /> 
+											</>
 										}
+
+
 										<Route component={NotFound} />
+
+
 									</Switch>
 								</div>
 							</CSSTransition>

@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import {Navbar, Nav, Container} from 'react-bootstrap'
+import { useDispatch } from 'react-redux'
 import useAxios from '../../libs/axiosInstance'
 import styles from './styles.css'
+import actions from '../../redux/actions/'
 
 const httpConfig = {
 	url: '/organization/public',
@@ -9,17 +11,29 @@ const httpConfig = {
 }
 
 const Footer = () => {
+	const {addUser} = actions
+	const whiteUser = {
+		id: null,
+		email: null, 
+		firstName: null, 
+		lastName: null, 
+		roleId: null, 
+		routes: [] 
+	}
+	const dispatch = useDispatch()
 	const { response, error, loading, fetchData } = useAxios()
 	const [socialMedia, setSocialMedia] = useState([])
 
 	useEffect( () => {
 		if (!loading && response) {
 			setSocialMedia(response.data)
+			whiteUser.routes = response.routes
+			dispatch(addUser(whiteUser))
 		}
 	},[loading, response, error])
 
 	useEffect(() => {
-		fetchData({ url: httpConfig.url, method: httpConfig.method })
+		fetchData(httpConfig)
 	}, [])
 	
 	// FYI: Data for footer links:
