@@ -51,13 +51,13 @@ function BackofficeTestimonials() {
 					</thead>
 					<tbody>
 						{
-							testimonials.map(({ id, name, image, content }) => {
-								return (
-									<tr key={id}>
-										<td>{name}</td>
-										<td>{image}</td>
-										<td>{content}</td>
-										<td><Button as={Link} to={`/backoffice/testimonials/${id}`}>Editar</Button></td>
+							testimonials.map( ({ id, name, image, content } ) => {
+								return(
+									<tr key={ id }>
+										<td>{ name }</td>
+										<td>{ image }</td>
+										<td>{ content }</td>
+										<td><Button as={Link} to={`/backoffice/testimonios/${id}`}>Editar</Button></td>
 										<td><Button variant="danger">Eliminar</Button></td>
 									</tr>
 								)

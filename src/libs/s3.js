@@ -2,21 +2,21 @@ import S3 from 'react-aws-s3'
 
 const accessKeyId =  process.env.REACT_APP_AWS_S3_KEY
 const secretAccessKey = process.env.REACT_APP_AWS_S3_SECRET
-const s3Url = process.env.REACT_APP_AWS_S3_URL
+//const s3Url = process.env.REACT_APP_AWS_S3_URL
 const region = process.env.REACT_APP_AWS_S3_REGION
 const bucketName = process.env.REACT_APP_AWS_S3_BUCKET
 const dirName = process.env.REACT_APP_AWS_S3_DIRNAME
 
 // FYI: Notice that if you don't provide a dirName, 
 // the file will be automatically uploaded to the root of your bucket
+// El s3url no es necesario para que funcione el s3
 
-const config = {
+export const config = {
 	bucketName,
 	dirName,
 	region,
 	accessKeyId,
 	secretAccessKey,
-	s3Url
 }
 
 const ReactS3Client = new S3(config)

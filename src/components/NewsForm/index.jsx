@@ -1,10 +1,13 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import * as yup from 'yup'
 import { Formik,Field } from 'formik'
 import { Form, Col, Button, Card } from 'react-bootstrap'
 import useAxios from '../../libs/axiosInstance'
 import { CKEditor } from '@ckeditor/ckeditor5-react'
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
+import { useParams } from 'react-router-dom'
+import S3 from 'react-aws-s3'
+import { config } from '../../libs/s3'
 
 const httpConfig = {
 	url: '/news',
@@ -12,41 +15,66 @@ const httpConfig = {
 	method_patch: 'patch'
 }
 
-//FYI: Por ahora le páso incomingNews aca. Cuando esté conectado deberá pasarse por props
-	
-/* const incomingNews = {
-	name: '',
-	image:'',
-	content:'',
-	id: ''
-} */
-	
-const incomingNews = {
-	name: 'Novedades',
-	image:'PATCH',
-	content:'Novedades en el front',
-	id: '89'
-}
-
-const FormNews = (/* {incomingNews} */) => {
+const FormNews = () => {
+	const fileInput = useRef()
+	const { id } = useParams()
+	const [news, setNews] = useState([])
 	const { response, error, loading, fetchData } = useAxios()
+
+	const handleUpload = (values) => {
+		let file = fileInput.current.files[0]
+		let newFileName = fileInput.current.files[0].name
+		const ReactS3Client = new S3(config)
+		ReactS3Client.uploadFile(file, newFileName).then((data) => {
+			let body = {
+				name: values.name,
+				image: data.location,
+				content:values.content,
+				categoryId:'1',
+				id:values.id
+			}
+			if (data.status === 204) {
+				console.log('success')
+				if (news.name === '' && news.content === '' && news.image === '') {  
+					createEntry(body)
+				} else{
+					try {
+						updateEntry(body)
+					} catch (error) {
+						console.log(error.message)
+					}	
+				}
+			} else {
+				console.log('fail')
+				console.log(data)
+			}
+		})
+	}
 	
 	const createEntry = (body) => {
 		fetchData({ url: httpConfig.url, method: httpConfig.method_post, body })
 	}
 
 	const updateEntry = (body) => {
-		fetchData({ url: `${httpConfig.url}/${body.id}`, method: httpConfig.method_patch, body })
+		fetchData({ url: `${httpConfig.url}/${id}`, method: httpConfig.method_patch, body })
 	}
 	const schema = yup.object().shape({ 
 		name: yup.string().required(),
 		image:yup.string().required(),
 		content:yup.string().required()
 	})
+	
+	useEffect(() => {
+		fetchData({url: `/news/${id}`, method: 'get'})
+		console.log({ loading, response, error, news })
+	}, [])
 
 	useEffect(() => {
-		console.log({ loading, response, error })
-	}, [loading])
+		if (!loading && response ) {
+			console.log({ loading, response, error, news })
+			setNews([response.data])
+		}
+	}, [loading, response, error])
 
 	return (
         
@@ -54,11 +82,11 @@ const FormNews = (/* {incomingNews} */) => {
 			<Formik
 				validationSchema={schema}
 				initialValues={{
-					name: incomingNews.name,
-					image:incomingNews.image,
-					content:incomingNews.content,
+					name: news.name,
+					image: news.image,
+					content:news.content,
 					categoryId:'1',
-					id:incomingNews.id
+					id:news.id
 				}}
 				validate={values => {
 					const errors = {}
@@ -75,15 +103,7 @@ const FormNews = (/* {incomingNews} */) => {
 				}}
 
 				onSubmit={values => {
-					if (incomingNews.name === '' && incomingNews.content === '' && incomingNews.image === '') {  
-						createEntry(values)
-					} else{
-						try {
-							updateEntry(values)
-						} catch (error) {
-							console.log(error.message)
-						}	
-					}
+					handleUpload(values)
 				}}>
 				{({ handleSubmit, handleChange, values, touched, errors }) => (
 
@@ -125,16 +145,17 @@ const FormNews = (/* {incomingNews} */) => {
 										}}
 									/>
 								</Form.Group>			
-								<Form.Group md="12" as={Col} controlId="validationimage">
+								<Form.Group md="12" as={Col} className="d-flex flex-column" controlId="validationimage">
 									<Form.Label>Imagen</Form.Label>
 									<Form.Control
-										type="text"
+										type="file"
 										name="image"
 										placeholder="url de la imagen"
 										value={values.image}
 										onChange={handleChange}
 										isInvalid={!!errors.image}
 										isValid={touched.image && !errors.image}
+										ref={fileInput}
 									/>
 									<Form.Control.Feedback type="invalid">
 										{errors.image}
