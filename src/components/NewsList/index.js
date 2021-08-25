@@ -5,13 +5,15 @@ import useAxios from '../../libs/axiosInstance'
 import { Card, Col, Row, Container } from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './styles.css'
+import Sweel from '../../shared/Alert/Alert'
+import Loader from '../../shared/Loader/Loader'
 
 const httpConfig = {
 	url: '/news',
 	method: 'get'
 }
 
-export const NewList  = () => {
+export const NewList = () => {
 	const { response, error, loading, fetchData } = useAxios()
 
 	const [news, setNews] = useState([])
@@ -20,7 +22,7 @@ export const NewList  = () => {
 		if (!loading && response) {
 			setNews(response.data)
 		}
-	},[loading, response, error])
+	}, [loading, response, error])
 
 	useEffect(() => {
 		fetchData({ url: httpConfig.url, method: httpConfig.method })
@@ -29,15 +31,19 @@ export const NewList  = () => {
 	if (error) {
 		return (
 			<Container>
-				<h1>Hubo un error al traer los datos desde el servidor...</h1>
+				<Sweel show={true}
+					title={'ERROR'}
+					text={'Error al traer los datos desde el servidor'}
+					type={'error'}
+					onConfirm={'OK'} />
 			</Container>
 		)
 	}
 
-	return(
+	return (
 		<Container>
 			{loading ?
-				<h1>Cargando...</h1> :
+				<Loader /> :
 				<Row>
 					{
 						news.map(({id, name, image, createdAt }) => {
@@ -47,7 +53,7 @@ export const NewList  = () => {
 										<Card.Img className="h-75" variant="top" src={ image } />
 										<Card.Body>
 											<Card.Title className="left">{name}</Card.Title>
-											<Card.Text className="left date">Creado el { Moment(createdAt).format('DD-MM-YYYY')}</Card.Text>
+											<Card.Text className="left date">Creado el {Moment(createdAt).format('DD-MM-YYYY')}</Card.Text>
 											<Link className="btn btn-primary" to={`/novedades/${id}`}>Ver detalle</Link>
 										</Card.Body>
 									</Card>
@@ -55,7 +61,7 @@ export const NewList  = () => {
 							)
 						})
 					}
-				</Row> 
+				</Row>
 			}
 		</Container>
 	)

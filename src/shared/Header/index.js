@@ -72,13 +72,13 @@ export const Header = () => {
 						{!isAuth ?
 							<Nav className="me-auto" variant="btn-container">
 								<Button as={Link} to="/login" variant="blue" size="sm">
-                  Login
+									Login
 								</Button>
 								<Button as={Link} to="/register" variant="primary" size="sm">
-                  Registrarse
+									Registrarse
 								</Button>
 							</Nav>
-							:   <Nav className="me-auto" variant="btn-container">
+							: <Nav className="me-auto" variant="btn-container">
 								<Button variant="blue" size="sm" onClick={() => {
 									localStorage.removeItem('token')
 									dispatch(addAuth(false))
@@ -88,7 +88,7 @@ export const Header = () => {
 						Desloguearse
 								</Button>
 								<Button as={Link} to="/user" variant="primary" size="sm">
-						Perfil
+									Perfil
 								</Button>
 								<Backoffice />
 							</Nav>

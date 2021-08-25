@@ -4,6 +4,7 @@ import useAxios from '../../libs/axiosInstance'
 import { Table, Container, Button } from 'react-bootstrap'
 import Loader from '../../shared/Loader/Loader'
 import { Link } from 'react-router-dom'
+import Sweel from '../../shared/Alert/Alert'
 import { useHistory } from 'react-router-dom'
 
 const httpConfig = {
@@ -24,11 +25,11 @@ function BackofficeNewsList() {
 		history.push('/backoffice/novedades')
 	}
 
-	useEffect( () => {
+	useEffect(() => {
 		if (!loading && response) {
 			setNews(response.data)
 		}
-	},[loading, response, error])
+	}, [loading, response, error])
 
 	useEffect(() => {
 		fetchData({ url: httpConfig.url, method: httpConfig.method })
@@ -37,11 +38,15 @@ function BackofficeNewsList() {
 	if (error) {
 		return (
 			<Container>
-				<h1>Hubo un error al traer los datos desde el servidor...</h1>
+				<Sweel show={true}
+					title={'ERROR'}
+					text={'Error al traer los datos desde el servidor'}
+					type={'error'}
+					onConfirm={'OK'} />
 			</Container>
 		)
 	}
-	return(
+	return (
 		<Container>
 			{loading ?
 				<Loader /> :
@@ -57,12 +62,12 @@ function BackofficeNewsList() {
 					</thead>
 					<tbody>
 						{
-							news.map( ({id, name, image, createdAt } ) => {
-								return(
+							news.map(({ id, name, image, createdAt }) => {
+								return (
 									<tr key={id}>
 										<td>{name}</td>
-										<td>{ image }</td>
-										<td>Creado el { Moment(createdAt).format('DD-MM-YYYY')}</td>
+										<td>{image}</td>
+										<td>Creado el {Moment(createdAt).format('DD-MM-YYYY')}</td>
 										<td><Button as={Link} to={`/backoffice/novedades/${id}`}>Editar</Button></td>
 										<td><Button variant="danger" onClick={() => handleDelete(id)}>Eliminar</Button></td>
 									</tr>
@@ -70,7 +75,7 @@ function BackofficeNewsList() {
 							})
 						}
 					</tbody>
-				</Table> 
+				</Table>
 			}
 		</Container>
 	)

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import useAxios from '../../libs/axiosInstance'
 import { Table, Container } from 'react-bootstrap'
 import Loader from '../../shared/Loader/Loader'
+import Sweel from '../../shared/Alert/Alert'
 
 const httpConfig = {
 	url: '/contacts',
@@ -25,7 +26,11 @@ function BackofficeContacts() {
 	if (error) {
 		return (
 			<Container>
-				<h1>Hubo un error al traer los datos desde el servidor...</h1>
+				<Sweel show={true}
+					title={'ERROR'}
+					text={'Error al traer los datos desde el servidor'}
+					type={'error'}
+					onConfirm={'OK'} />
 			</Container>
 		)
 	}

@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import { Card, Alert, Button, Container } from 'react-bootstrap'
+import { Card, Button, Container } from 'react-bootstrap'
 import { useParams, Link } from 'react-router-dom'
 import useAxios from '../../libs/axiosInstance'
 import Loader from '../../shared/Loader/Loader'
+import Sweel from '../../shared/Alert/Alert'
 import './styles.scss'
 
 function NewsDetails() {
@@ -28,7 +29,12 @@ function NewsDetails() {
 	if (error) {
 		return (
 			<Container>
-				<Alert variant="danger">Lo sentimos, no se encontro el detalle</Alert>
+				<Sweel
+					show={true}
+					title={'ERROR'}
+					text={'Lo sentimos, no se encontró el detalle'}
+					type={'error'}
+					onConfirm={'OK'}/>
 				<Button as={Link} to="/novedades" size="lg">Volver</Button>
 			</Container>
 		)

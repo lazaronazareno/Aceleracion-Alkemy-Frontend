@@ -3,6 +3,7 @@ import useAxios from '../../libs/axiosInstance'
 import { Table, Container, Button } from 'react-bootstrap'
 import Loader from '../../shared/Loader/Loader'
 import { Link } from 'react-router-dom'
+import Sweel from '../../shared/Alert/Alert'
 
 const httpConfig = {
 	url: '/testimonials',
@@ -10,27 +11,31 @@ const httpConfig = {
 }
 
 function BackofficeTestimonials() {
-	const { response, error, loading, fetchData } = useAxios() 
+	const { response, error, loading, fetchData } = useAxios()
 	const [testimonials, setTestimonials] = useState([])
 
-	useEffect( () => {
+	useEffect(() => {
 		if (!loading && response) {
 			setTestimonials(response.data)
 		}
-	},[loading, response, error])
+	}, [loading, response, error])
 
 	useEffect(() => {
 		fetchData({ url: httpConfig.url, method: httpConfig.method })
 	}, [])
-    
+
 	if (error) {
 		return (
 			<Container>
-				<h1>Hubo un error al traer los datos desde el servidor...</h1>
+				<Sweel show={true}
+					title={'ERROR'}
+					text={'Error al traer los datos desde el servidor'}
+					type={'error'}
+					onConfirm={'OK'} />
 			</Container>
 		)
 	}
-	return(
+	return (
 		<Container>
 			{loading ?
 				<Loader /> :
@@ -46,12 +51,12 @@ function BackofficeTestimonials() {
 					</thead>
 					<tbody>
 						{
-							testimonials.map( ({ id, name, image, content } ) => {
-								return(
-									<tr key={ id }>
-										<td>{ name }</td>
-										<td>{ image }</td>
-										<td>{ content }</td>
+							testimonials.map(({ id, name, image, content }) => {
+								return (
+									<tr key={id}>
+										<td>{name}</td>
+										<td>{image}</td>
+										<td>{content}</td>
 										<td><Button as={Link} to={`/backoffice/testimonials/${id}`}>Editar</Button></td>
 										<td><Button variant="danger">Eliminar</Button></td>
 									</tr>
@@ -59,7 +64,7 @@ function BackofficeTestimonials() {
 							})
 						}
 					</tbody>
-				</Table> 
+				</Table>
 			}
 		</Container>
 	)

@@ -4,12 +4,13 @@ import useAxios from '../../libs/axiosInstance'
 import { Table, Container, Button } from 'react-bootstrap'
 import Loader from '../../shared/Loader/Loader'
 import { Link } from 'react-router-dom'
+import Sweel from '../../shared/Alert/Alert'
 
 const httpConfig = {
 	url: '/activities',
 	method: 'get'
 }
- 
+
 function BackofficeActivitiesList() {
 	const { response, error, loading, fetchData } = useAxios()
 	const [activities, setActivities] = useState([])
@@ -18,7 +19,7 @@ function BackofficeActivitiesList() {
 		if (!loading && response) {
 			setActivities(response.data)
 		}
-	},[loading, response, error])
+	}, [loading, response, error])
 
 	useEffect(() => {
 		fetchData({ url: httpConfig.url, method: httpConfig.method })
@@ -27,12 +28,16 @@ function BackofficeActivitiesList() {
 	if (error) {
 		return (
 			<Container>
-				<h1>Hubo un error al traer los datos desde el servidor...</h1>
+				<Sweel show={true}
+					title={'ERROR'}
+					text={'Error al traer los datos desde el servidor'}
+					type={'error'}
+					onConfirm={'OK'} />
 			</Container>
 		)
-	} 
-    
-	return(
+	}
+
+	return (
 		<Container>
 			{loading ?
 				<Loader /> :
@@ -49,21 +54,22 @@ function BackofficeActivitiesList() {
 					</thead>
 					<tbody>
 						{
-							activities.map( ({id, image, content, name, createdAt} ) => {
-								return(
+							activities.map(({ id, image, content, name, createdAt }) => {
+								return (
 									<tr key={id}>
 										<td>{name}</td>
-										<td>{ image }</td>
-										<td>{ content }</td>
-										<td>Creado el { Moment(createdAt).format('DD-MM-YYYY')}</td>
-										<td><Button as={Link} to={`/backoffice/novedades/${id}`}>Editar</Button></td>
+										<td>{image}</td>
+										<td>{content}</td>
+										<td>Creado el {Moment(createdAt).format('DD-MM-YYYY')}</td>
+										<td><Button as={Link} to={`/backoffice/actividades/${id}`}>Editar</Button></td>
 										<td><Button variant="danger">Eliminar</Button></td>
 									</tr>
 								)
 							})
 						}
 					</tbody>
-				</Table> 
+				</Table>
+
 			}
 		</Container>
 	)

@@ -6,6 +6,7 @@ import axios from 'axios'
 import { useDispatch } from 'react-redux'
 import actions from '../../redux/actions'
 import { useHistory } from 'react-router-dom'
+import { addAuth } from '../../redux/actions/authAction'
 
 /* eslint indent:"off" */
 const FormRegister = () => {
@@ -58,6 +59,7 @@ const FormRegister = () => {
           const response = await axios.post('http://localhost:4000/users/register', values)
           dispatch(addUser(response.data.data))
           localStorage.setItem('token', response.data.token)
+          dispatch(addAuth(true))
           history.push('/')
         }}
       >
