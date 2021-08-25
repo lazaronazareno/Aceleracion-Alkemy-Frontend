@@ -1,40 +1,39 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { Container, Row, CardGroup, Card } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import './HomeStyles.scss'
 import PropTypes from 'prop-types'
 import Slider from '../../features/Slider'
 import { useSelector } from 'react-redux'
+import useAxios from '../../libs/axiosInstance'
 
-const newsTest = [
-	{
-		title: 'New 1',
-		text: 'Some quick example text to build on the card title and make up the bulk of the card\'s content.',
-	},
-	{
-		title: 'New 2',
-		text: 'Some quick example text to build on the card title and make up the bulk of the card\'s content.',
-	},
-	{
-		title: 'New 3',
-		text: 'Some quick example text to build on the card title and make up the bulk of the card\'s content.',
-	},
-	{
-		title: 'New 4',
-		text: 'Some quick example text to build on the card title and make up the bulk of the card\'s content.',
-	},
-	{
-		title: 'New 5',
-		text: 'Some quick example text to build on the card title and make up the bulk of the card\'s content.',
-	},
-	{
-		title: 'New 6',
-		text: 'Some quick example text to build on the card title and make up the bulk of the card\'s content.',
-	},
-]
+const httpConfig = {
+	url: '/news',
+	method: 'get'
+}
 function Home() {
 	const welcomeMessage = useSelector((state) => state.welcomeText.welcomeText)
-	const newsList = newsTest.slice(-4) //FYI: ingresar lista de novedades en el slice
+	const { response, error, loading, fetchData } = useAxios()
+	const [news, setNews] = useState([])
+
+	useEffect( () => {
+		if (!loading && response) {
+			setNews(response.data)
+		}
+	},[loading, response, error])
+
+	useEffect(() => {
+		fetchData({ url: httpConfig.url, method: httpConfig.method })
+	}, [])
+    
+	if (error) {
+		return (
+			<Container>
+				<h1>Hubo un error al traer los datos desde el servidor...</h1>
+			</Container>
+		)
+	}
+	const newsList = news.slice(-4)
 	return (
 		<Container className="p-0" fluid>
 			<Container className="my-2" fluid>
@@ -51,11 +50,12 @@ function Home() {
 				</Row>
 				<CardGroup>
 					{
-						newsList.map((news) => (
-							<Card key={news.title} className="m-4">
+						newsList.map((news, index) => (
+							<Card key={index} className="m-4">
+								<Card.Img className="h-75" src={news.image} />
 								<Card.Body>
-									<Card.Title>{news.title}</Card.Title>
-									<Card.Text>{news.text}</Card.Text>
+									<Card.Title>{news.name}</Card.Title>
+									<Card.Text>{news.createdAt}</Card.Text>
 								</Card.Body>
 							</Card>
 						))

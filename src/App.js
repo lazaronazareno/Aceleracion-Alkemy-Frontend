@@ -20,6 +20,13 @@ import Login from './components/Login/Form'
 import Register from './components/Register'
 
 import BackofficeCategories from './components/BackofficeCategories'
+import BackofficeHome from './components/BackofficeHome'
+import BackofficeContacts from './components/BackofficeContacts'
+import BackofficeTestimonials from './components/BackofficeTestimonials'
+import { UserList } from './components/UserLists'
+import FormNews from './components/NewsForm'
+import { ActivityForm } from './components/ActivityForm'
+import TestimonialsForm from './components/TestimonialsForm'
 
 function App() {
 	const dispatch = useDispatch()
@@ -32,8 +39,19 @@ function App() {
 		'/editUser': EditUser,
 		'/user': UserProfile,
 		'/contacto': Contact,
+		'/nosotros': NotFound,
+		'/testimonios': NotFound,
+		'/contribuye': NotFound,
 		'/backoffice/novedades': BackofficeNewsList,
-		'/backoffice/actividades': BackofficeActivitiesList
+		'/backoffice/novedades/:id': FormNews,
+		'/backoffice/actividades': BackofficeActivitiesList,
+		'/backoffice/actividades/:id': ActivityForm,
+		'/backoffice/inicio': BackofficeHome,
+		'/backoffice/contactos': BackofficeContacts,
+		'/backoffice/testimonios': BackofficeTestimonials,
+		'/backoffice/testimonios/id': TestimonialsForm,
+		'/backoffice/categories': BackofficeCategories,
+		'/backoffice/usuarios': UserList
 	}
 
 
@@ -47,10 +65,7 @@ function App() {
 			FYI: Here we need sent the request with axios instance.
 			For test I use axios dependency directly
 		*/
-		if (user.ok) {
-			dispatch(addUser(user.data))
-
-		}
+		dispatch(addUser(user.data))
 	}
 
 	useEffect(() => {

@@ -13,7 +13,6 @@ export const Header = () => {
 	const { addAuth } = actions
 	const dispatch = useDispatch()
 	const isAuth = useSelector((state) => state.auth.isAuth)	
-	const roleId = useSelector((state) => state.user.roleId)	
 	// FYI: Data for navbar links:
 	const infoNavbarNL = [
 		{
@@ -91,7 +90,7 @@ export const Header = () => {
 								<Button as={Link} to="/user" variant="primary" size="sm">
 						Perfil
 								</Button>
-								<Backoffice roleId={roleId} />
+								<Backoffice />
 							</Nav>
 						}
 					</Navbar.Collapse>

@@ -40,11 +40,11 @@ export const NewList  = () => {
 				<h1>Cargando...</h1> :
 				<Row>
 					{
-						news.map(({name, image, createdAt }, id) => {
+						news.map(({id, name, image, createdAt }) => {
 							return(
 								<Col md={4} key={id}>
 									<Card className="shadow">
-										<Card.Img variant="top" src={ image } />
+										<Card.Img className="h-75" variant="top" src={ image } />
 										<Card.Body>
 											<Card.Title className="left">{name}</Card.Title>
 											<Card.Text className="left date">Creado el { Moment(createdAt).format('DD-MM-YYYY')}</Card.Text>

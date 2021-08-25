@@ -4,6 +4,7 @@ import useAxios from '../../libs/axiosInstance'
 import { Table, Container, Button } from 'react-bootstrap'
 import Loader from '../../shared/Loader/Loader'
 import { Link } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 
 const httpConfig = {
 	url: '/news',
@@ -13,6 +14,15 @@ const httpConfig = {
 function BackofficeNewsList() {
 	const { response, error, loading, fetchData } = useAxios()
 	const [news, setNews] = useState([])
+	const history = useHistory()
+	const handleDelete = async (id) => {
+		const httpConfigDelete = {
+			url: `/news/${id}`,
+			method: 'delete'
+		}
+		await fetchData(httpConfigDelete)
+		history.push('/backoffice/novedades')
+	}
 
 	useEffect( () => {
 		if (!loading && response) {
@@ -23,7 +33,7 @@ function BackofficeNewsList() {
 	useEffect(() => {
 		fetchData({ url: httpConfig.url, method: httpConfig.method })
 	}, [])
-    
+
 	if (error) {
 		return (
 			<Container>
@@ -54,7 +64,7 @@ function BackofficeNewsList() {
 										<td>{ image }</td>
 										<td>Creado el { Moment(createdAt).format('DD-MM-YYYY')}</td>
 										<td><Button as={Link} to={`/backoffice/novedades/${id}`}>Editar</Button></td>
-										<td><Button variant="danger">Eliminar</Button></td>
+										<td><Button variant="danger" onClick={() => handleDelete(id)}>Eliminar</Button></td>
 									</tr>
 								)
 							})
