@@ -61,7 +61,7 @@ function BackofficeNewsList() {
 						</tr>
 					</thead>
 					<tbody>
-						{
+						{news && (
 							news.map(({ id, name, image, createdAt }) => {
 								return (
 									<tr key={id}>
@@ -73,6 +73,7 @@ function BackofficeNewsList() {
 									</tr>
 								)
 							})
+						)
 						}
 					</tbody>
 				</Table>

@@ -2,14 +2,14 @@ import { useState } from 'react'
 
 import axios from 'axios'
 
-const access_token = localStorage.getItem('token')
 
 // eslint-disable-next-line no-undef
 axios.defaults.baseURL = process.env.REACT_APP_BASE_URL
-axios.defaults.headers['authorization'] = access_token
 
 
 const useAxios = () => {
+	const access_token = localStorage.getItem('token')
+	axios.defaults.headers['authorization'] = access_token
 
 	const [response, setResponse] = useState(null)
 

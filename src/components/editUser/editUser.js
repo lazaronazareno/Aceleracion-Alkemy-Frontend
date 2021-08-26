@@ -7,10 +7,10 @@ import { useSelector } from 'react-redux'
 function EditUser() {
 	const userLogged = useSelector((state) => state.user)
 	const initialValues = {
-		name: '',
-		lastName: '',
-		email: '',
-		roleId: '',
+		name: userLogged.firstName || '',
+		lastName: userLogged.lastName || '',
+		email: userLogged.email || '',
+		roleId: userLogged.roleId || '',
 	}
 
 	const validationSchema = Yup.object({
@@ -41,7 +41,7 @@ function EditUser() {
 						name="name"
 						placeholder="nombre"
 					/>
-					<label htmlFor="floatingName">{userLogged.firstName === '' ? 'Nombre'  : (userLogged.firstName)}</label>
+					<label htmlFor="floatingName">Nombre</label>
 					<span className="text-danger d-flex fs-4">
 						<ErrorMessage name="name" />
 					</span>
@@ -54,7 +54,7 @@ function EditUser() {
 						name="lastName"
 						placeholder="lastName"
 					/>
-					<label htmlFor="floatingLastName">{userLogged.lastName === '' ? 'Apellido'  : (userLogged.lastName)}</label>
+					<label htmlFor="floatingLastName">Apellido</label>
 					<span className="text-danger d-flex fs-4">
 						<ErrorMessage name="lastName" />
 					</span>
@@ -67,12 +67,12 @@ function EditUser() {
 						name="email"
 						placeholder="email"
 					/>
-					<label htmlFor="floatingEmail">{userLogged.email === '' ? 'Email'  : (userLogged.email)}</label>
+					<label htmlFor="floatingEmail">Email</label>
 					<span className="text-danger d-flex fs-4">
 						<ErrorMessage name="email" />
 					</span>
 				</div>
-				{ userLogged.roleId === 1 && (
+				{userLogged.roleId === 1 && (
 					<div className="form-floating m-3">
 						<Field
 							type="text"
@@ -81,7 +81,7 @@ function EditUser() {
 							name="roleId"
 							placeholder="roleId"
 						/>
-						<label htmlFor="floatingRoleId">{userLogged.roleId === '' ? 'RoleID' : (userLogged.roleId)}</label>
+						<label htmlFor="floatingRoleId">RoleID</label>
 						<span className="text-danger d-flex fs-4">
 							<ErrorMessage name="roleId" />
 						</span>
