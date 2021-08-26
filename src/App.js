@@ -27,6 +27,7 @@ import { UserList } from './components/UserLists'
 import FormNews from './components/NewsForm'
 import { ActivityForm } from './components/ActivityForm'
 import TestimonialsForm from './components/TestimonialsForm'
+import MemberList from './components/MemberList'
 
 function App() {
 	const dispatch = useDispatch()
@@ -38,7 +39,7 @@ function App() {
 		'/editUser': EditUser,
 		'/user': UserProfile,
 		'/contacto': Contact,
-		'/nosotros': NotFound,
+		'/nosotros': MemberList,
 		'/testimonios': NotFound,
 		'/contribuye': NotFound,
 		'/backoffice/novedades': BackofficeNewsList,
