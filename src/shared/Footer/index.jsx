@@ -5,6 +5,8 @@ import useAxios from '../../libs/axiosInstance'
 import styles from './styles.css'
 import actions from '../../redux/actions/'
 
+const logoImg = `${process.env.PUBLIC_URL}/images/assets/LOGOSOMOSMAS.png`
+
 const httpConfig = {
 	url: '/organization/public',
 	method: 'get'
@@ -36,12 +38,7 @@ const Footer = () => {
 		fetchData(httpConfig)
 	}, [])
 	
-	// FYI: Data for footer links:
 	const infoFooter = [
-		{
-			title: 'Noticias',
-			link: '/noticias'
-		},
 		{
 			title: 'Actividades',
 			link: '/actividades'
@@ -61,6 +58,10 @@ const Footer = () => {
 		{
 			title: 'Contacto',
 			link: '/contacto'
+		},
+		{
+			title: 'Contribuye',
+			link: '/contribuye'
 		}
 	]
    
@@ -90,9 +91,10 @@ const Footer = () => {
 							}
 						</Nav> 
 						<Navbar.Brand href="/">
-							<img src='images/assets/logo-header-2.svg' alt='sample-logo'/>
-							<label>   </label>
-							<img src='images/assets/logo-header.svg' alt='logo' />
+							<img src={logoImg} alt='sample-logo'/>
+							{/* FYI: Por el momento el logo esta guardado en la carpeta de imagnes. Cuando se tenga disponible la url de s3 se podra consmuir 
+							desde el campo image del public endpoint segun:  */}
+							{/* <img src={socialMedia.image} alt="Logo"></img> */}
 						</Navbar.Brand> 
 						<Nav variant='monserrat'>
 							{ infoFooterLinks[1].map(item => {

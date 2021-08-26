@@ -9,6 +9,8 @@ import { useDispatch } from 'react-redux'
 import actions from '../../redux/actions'
 import useAxios from '../../libs/axiosInstance'
 
+const logoImg = `${process.env.PUBLIC_URL}/images/assets/LOGOSOMOSMAS.png`
+
 export const Header = () => {
 	const history = useHistory()
 	const { addAuth, addUser } = actions
@@ -75,8 +77,9 @@ export const Header = () => {
 			<Navbar bg="light" variant="light" expand="lg">
 				<Container>
 					<Navbar.Brand as={Link} to="/">
-						<img src="images/assets/logo-header-2.svg" alt="sample-logo" />
-						<img src="images/assets/logo-header.svg" alt="logo" />
+						<img src={logoImg} alt='sample-logo'/>
+						{/* FYI: Por el momento el logo esta guardado en la carpeta de imagnes. Cuando se tenga disponible la url de s3 se podra consmuir 
+							desde el campo image del public endpoint */}
 					</Navbar.Brand>
 					<Navbar.Toggle aria-controls="basic-navbar-nav" />
 					<Navbar.Collapse id="basic-navbar-nav">
