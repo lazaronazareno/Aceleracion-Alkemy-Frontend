@@ -4,7 +4,7 @@ import { welcomeTextAction } from './welcomeTextAction'
 import {addCategories, deleteCategory} from './categoryActions'
 
 export default {
-	addAuth: addAuth, 
+	addAuth,
 	addUser: addUserAction,
 	welcomeTextAction: welcomeTextAction,
 	addCategories,

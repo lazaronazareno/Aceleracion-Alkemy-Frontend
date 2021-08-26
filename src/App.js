@@ -1,12 +1,11 @@
 import React, {useEffect} from 'react'
-import { BrowserRouter, Switch, Route } from 'react-router-dom'
+import { BrowserRouter, Switch, Route} from 'react-router-dom'
 import './App.css'
 import { Header } from './shared/Header'
 import Footer from './shared/Footer'
 import { TransitionGroup, CSSTransition } from 'react-transition-group'
 import actions from './redux/actions'
 import { useDispatch, useSelector } from 'react-redux'
-import axios from 'axios'
 import Home from './shared/Home/Home'
 import NotFound from './shared/testNotFound'
 import NewsDetails from './components/NewsDetails'
@@ -18,6 +17,7 @@ import BackofficeActivitiesList from './components/BackofficeActivitiesList'
 import BackofficeNewsList from './components/BackofficeNewsList'
 import Login from './components/Login/Form'
 import Register from './components/Register'
+import useAxios from './libs/axiosInstance'
 
 import BackofficeCategories from './components/BackofficeCategories'
 import BackofficeHome from './components/BackofficeHome'
@@ -31,7 +31,6 @@ import TestimonialsForm from './components/TestimonialsForm'
 function App() {
 	const dispatch = useDispatch()
 	const { addAuth, addUser } = actions
-	const isAuth = useSelector(state => state.auth.isAuth)
 	const myRoutes = useSelector(state => state.user.routes)
 	const components = {
 		'/novedades': NewList,
@@ -51,29 +50,41 @@ function App() {
 		'/backoffice/testimonios': BackofficeTestimonials,
 		'/backoffice/testimonios/id': TestimonialsForm,
 		'/backoffice/categories': BackofficeCategories,
-		'/backoffice/usuarios': UserList
+		'/backoffice/usuarios': UserList,
+		'/login': Login, 
+		'/register': Register
+	}
+	const httpConfig = {
+		url: '/auth/me',
+		method: 'get'
 	}
 
+	const {response, error, fetchData} = useAxios()
 
 	const getAuthUser = async () => {
-		const user = await axios.get('http://localhost:4000/auth/me', {
-			headers: {
-				authorization: localStorage.getItem('token')
-			}
-		})
+		await fetchData(httpConfig)
 		/*
 			FYI: Here we need sent the request with axios instance.
 			For test I use axios dependency directly
 		*/
-		dispatch(addUser(user.data))
 	}
 
+	/*
+		FYI: Esto se ejecuta dos veces al momento de hacer login, arreglar en el futuro.
+		No compromete a la aplicación en sí, pero la petición aún así se realiza. 
+	*/
 	useEffect(() => {
 		if (localStorage.getItem('token')) {
-			dispatch(addAuth(true))
 			getAuthUser()
+			dispatch(addAuth(true))
 		}
 	}, [localStorage.getItem('token')])
+
+	useEffect(() => {
+		if (response) {
+			dispatch(addUser(response))
+		}
+	}, [response, error])
 	
 	return (
 		<div className="App">
@@ -103,17 +114,10 @@ function App() {
 											)
 										})}
 
-										
-										{	
-											!isAuth && 
-											<>
-												<Route exact path='/login' component={Login} />
-												<Route exact path='/register' component={Register} /> 
-											</>
-										}
-
-
+					
 										<Route component={NotFound} />
+
+
 
 
 									</Switch>

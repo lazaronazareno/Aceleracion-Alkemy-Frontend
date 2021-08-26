@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import { Navbar, Nav, Container, Button } from 'react-bootstrap'
 import { Link, useLocation } from 'react-router-dom'
 import './styles.css' // This is for style variants used
@@ -7,10 +7,11 @@ import { Backoffice } from '../../components/BackofficeMenu'
 import { useHistory } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import actions from '../../redux/actions'
+import useAxios from '../../libs/axiosInstance'
 
 export const Header = () => {
 	const history = useHistory()
-	const { addAuth } = actions
+	const { addAuth, addUser } = actions
 	const dispatch = useDispatch()
 	const isAuth = useSelector((state) => state.auth.isAuth)	
 	// FYI: Data for navbar links:
@@ -47,6 +48,27 @@ export const Header = () => {
 
 	const location = useLocation()
 	const { pathname } = location
+	
+	const httpConfigMe = {
+		url: '/organization/public', 
+		method: 'get'
+	}
+
+	const {response, error, fetchData} = useAxios()
+
+
+	useEffect(() => {
+		if (response) {
+			const whiteUser = {
+				id: '', 
+				firstName: '', 
+				lastName: '', 
+				roleId: '',
+				routes: response.routes
+			}
+			dispatch(addUser(whiteUser))
+		}
+	}, [response, error])
 
 	return (
 		<>
@@ -79,16 +101,17 @@ export const Header = () => {
 								</Button>
 							</Nav>
 							: <Nav className="me-auto" variant="btn-container">
-								<Button variant="blue" size="sm" onClick={() => {
+								<Button variant="blue" size="sm" onClick={async () => {
 									localStorage.removeItem('token')
 									dispatch(addAuth(false))
+									await fetchData(httpConfigMe)
 									history.push('/')
 								}
 								}>
-						Desloguearse
+										Desloguearse
 								</Button>
 								<Button as={Link} to="/user" variant="primary" size="sm">
-									Perfil
+										Perfil
 								</Button>
 								<Backoffice />
 							</Nav>

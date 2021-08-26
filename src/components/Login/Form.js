@@ -45,10 +45,15 @@ function FormLogin() {
 					FYI: This should be replace with the axios instance after fix problems
 					*/
 
-					const {token, user} = response.data
+					const {token } = response.data
 					localStorage.setItem('token', `Bearer ${token}`)
+					const user = await axios.get('http://localhost:4000/auth/me', {
+						headers: {
+							authorization: localStorage.getItem('token')
+						}
+					})
 					dispatch(addAuth(true))
-					dispatch(addUser(user))
+					dispatch(addUser(user.data))
 					history.push('/')
 				}}
 			>

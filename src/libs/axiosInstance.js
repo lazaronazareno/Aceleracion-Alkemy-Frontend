@@ -20,7 +20,7 @@ const useAxios = () => {
 	const fetchData = ({ url, method, body = null }) => {
 		setloading(true)
 		console.log({ body })
-		axios[method](url,body)
+		axios[method](url, body)
 
 			.then((res) => {
 				setResponse(res.data)
