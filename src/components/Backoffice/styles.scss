@@ -1,0 +1,15 @@
+.backofficeCard {
+  width: 23vw;
+  height: 20vh;
+}
+
+.blue-card {
+  border-color: #9AC9FB!important;
+  color:  #9AC9FB!important;
+  text-decoration: none;
+  &:hover {
+    background-color: #9AC9FB!important;
+    border: 2px solid #9AC9FB!important;
+    color: #fafafa!important;
+}
+}

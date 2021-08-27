@@ -8,6 +8,10 @@ export const Backoffice = () => {
 	const [show, setShow] = useState(false)
 	const BackofficeList = [
 		{
+			title: 'Menu Principal',
+			link: '/backoffice',
+		},
+		{
 			title: 'Usuarios',
 			link: '/backoffice/usuarios',
 		},

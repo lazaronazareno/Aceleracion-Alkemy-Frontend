@@ -8,6 +8,7 @@ export default configureStore({
 		user: reducers.userReducer,
 		auth: reducers.authReducer,
 		welcomeText : reducers.welcomeTextReducer,
-		category: reducers.categoryReducer
+		category: reducers.categoryReducer,
+		news: reducers.newsReducer
 	},
 })

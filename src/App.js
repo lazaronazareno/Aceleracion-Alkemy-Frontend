@@ -28,6 +28,7 @@ import FormNews from './components/NewsForm'
 import { ActivityForm } from './components/ActivityForm'
 import TestimonialsForm from './components/TestimonialsForm'
 import MemberList from './components/MemberList'
+import { BackofficeMain } from './components/Backoffice'
 
 function App() {
 	const dispatch = useDispatch()
@@ -44,6 +45,7 @@ function App() {
 		'/contribuye': NotFound,
 		'/backoffice/novedades': BackofficeNewsList,
 		'/backoffice/novedades/:id': FormNews,
+		'/backoffice/novedades/new': FormNews,
 		'/backoffice/actividades': BackofficeActivitiesList,
 		'/backoffice/actividades/:id': ActivityForm,
 		'/backoffice/inicio': BackofficeHome,
@@ -53,7 +55,8 @@ function App() {
 		'/backoffice/categories': BackofficeCategories,
 		'/backoffice/usuarios': UserList,
 		'/login': Login, 
-		'/register': Register
+		'/register': Register,
+		'/backoffice': BackofficeMain,
 	}
 	const httpConfig = {
 		url: '/auth/me',
