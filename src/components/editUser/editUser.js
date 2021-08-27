@@ -31,8 +31,8 @@ function EditUser() {
 			validationSchema={validationSchema}
 			onSubmit={onSubmit}
 		>
-			<Form className="container d-flex flex-column text-dark border border-dark mt-2 p-5">
-				{userLogged.roleId === 1 ? <h1>Editar Usuario Administrador</h1> : <h1>Editar Usuario</h1> }
+			<Form className="container d-flex flex-column text-dark border-blue mt-2 p-5">
+				{userLogged.roleId === 1 ? <span className="fs-1">Editar Usuario Administrador</span> : <span className="fs-1">Editar Usuario</span> }
 				<div className="form-floating m-3">
 					<Field
 						type="text"

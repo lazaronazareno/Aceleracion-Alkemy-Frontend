@@ -28,7 +28,7 @@ function WelcomeTextEdit() {
 			onSubmit={onSubmit}
 		>
 			<Form className="container">
-				<h2 className="d-flex m-3">Modificar texto de bienvenida</h2>
+				<span className="d-flex m-3 fs-2">Modificar texto de bienvenida</span>
 				<div className="form-floating m-3">
 					<Field
 						type="text"
@@ -42,7 +42,7 @@ function WelcomeTextEdit() {
 						<ErrorMessage name="welcomeText" />
 					</span>
 				</div>
-				<Button type="submit">
+				<Button type="submit" variant="info" className="ms-3">
               Modificar
 				</Button>
 			</Form>

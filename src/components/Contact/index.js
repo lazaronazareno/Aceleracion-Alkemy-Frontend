@@ -52,8 +52,8 @@ function Contact() {
 					validationSchema={validationSchema}
 					onSubmit={onSubmit}
 				>
-					<Form className="container d-flex flex-column text-dark border border-dark mt-2 p-5">
-						<h1 className="d-flex m-3">Contactate con nosotros</h1>
+					<Form className="container d-flex flex-column text-dark border-blue mt-2 p-5">
+						<span className="d-flex m-3 fs-1">Contactate con nosotros</span>
 						<div className="d-flex">
 							<div className="form-floating m-3 w-50">
 								<Field
@@ -110,7 +110,7 @@ function Contact() {
 							</span>
 						</div>
 						<div className="d-flex m-3">
-							<Button className="p-4 w-25" size="lg" type="submit">
+							<Button className="p-4 w-25 btn-info" size="lg" type="submit">
               Enviar
 							</Button>
 						</div>

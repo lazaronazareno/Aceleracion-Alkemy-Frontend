@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Container, Row, CardGroup, Card } from 'react-bootstrap'
+import { Container, CardGroup, Card } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import './HomeStyles.scss'
 import PropTypes from 'prop-types'
@@ -29,29 +29,25 @@ function Home() {
 	if (error) {
 		return (
 			<Container>
-				<h1>Hubo un error al traer los datos desde el servidor...</h1>
+				<span className="fs-1">Hubo un error al traer los datos desde el servidor...</span>
 			</Container>
 		)
 	}
 	const newsList = news.slice(-4)
 	return (
 		<Container className="p-0" fluid>
-			<Container className="my-2" fluid>
+			<Container className="my-2 border-blue" fluid>
 				<Slider />
 			</Container>
-			<Container>
-				<Row className="justify-content-center mb-4">
-					<h1>{welcomeMessage}</h1>
-				</Row>
+			<Container className=" my-4 border-yellow" fluid>
+				<span className="fs-1">{welcomeMessage}</span>
 			</Container>
-			<Container className="yellow" fluid>
-				<Row className="justify-content-center">
-					<h1>Ultimas Novedades</h1>
-				</Row>
+			<Container className=" py-2 border-blue" fluid>
+				<span className=" fs-1 border-blue">Ultimas Novedades</span>
 				<CardGroup>
 					{
 						newsList.map((news, index) => (
-							<Card key={index} className="m-4">
+							<Card key={index} className="m-4 border-blue">
 								<Card.Img className="h-75" src={news.image} />
 								<Card.Body>
 									<Card.Title>{news.name}</Card.Title>
@@ -61,7 +57,7 @@ function Home() {
 						))
 					}
 				</CardGroup>
-				<Link to="/novedades" className="btn red text-light">Ver Todos</Link>
+				<Link to="/novedades" className=" btn btn-blue" >Ver Todas</Link>
 			</Container>
 		</Container>
 	)

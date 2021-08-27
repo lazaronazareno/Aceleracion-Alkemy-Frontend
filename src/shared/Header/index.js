@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react'
 import { Navbar, Nav, Container, Button } from 'react-bootstrap'
 import { Link, useLocation } from 'react-router-dom'
-import './styles.css' // This is for style variants used
+import './styles.scss' // This is for style variants used
 import { useSelector } from 'react-redux'
 import { Backoffice } from '../../components/BackofficeMenu'
 import { useHistory } from 'react-router-dom'
@@ -74,10 +74,10 @@ export const Header = () => {
 
 	return (
 		<>
-			<Navbar bg="light" variant="light" expand="lg">
-				<Container>
-					<Navbar.Brand as={Link} to="/">
-						<img src={logoImg} alt='sample-logo'/>
+			<Navbar bg="light" variant="light" expand="lg" className="p-0">
+				<Container className="p-0">
+					<Navbar.Brand as={Link} to="/" className="p-0">
+						<img src={logoImg} alt='sample-logo' className="w-75"/>
 						{/* FYI: Por el momento el logo esta guardado en la carpeta de imagnes. Cuando se tenga disponible la url de s3 se podra consmuir 
 							desde el campo image del public endpoint */}
 					</Navbar.Brand>

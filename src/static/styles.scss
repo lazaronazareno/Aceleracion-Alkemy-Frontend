@@ -1,0 +1,80 @@
+$blue:#9AC9FB!important;
+$red:#DB5752!important;
+$yellow:#FAFA88!important;
+$darkblue:#8AC9FB!important;
+$darkred:#AB5752!important;
+$darkyellow:#EAFA88!important;
+$white: #fafafa!important;
+
+
+@mixin yellow {
+  background-color: $yellow;
+}
+
+@mixin red {
+  background-color: $red;
+}
+
+@mixin blue {
+  background-color: $blue;
+}
+
+.referenceSize {
+  height: 20vh;
+}
+
+.translate {
+  transform: translateY(10vh);
+  z-index: 2;
+}
+
+.buttons {
+  padding-bottom: 10vh;
+}
+
+@mixin btn-info {
+  color: $blue;
+  background-color: $white;
+  border: 2px solid $blue;
+  &:hover {
+      background-color: $blue;
+      border: 2px solid $blue;
+      color: $white;
+  }
+}
+@mixin btn-outline-info {
+  background-color: $blue;
+  border: 2px solid $blue;
+  color: $white;
+  &:hover {
+    color: $white;
+    background-color: $darkblue;
+    border: 2px solid $blue;
+}
+}
+
+@mixin btn-danger {
+  color: $red;
+  background-color: $white;
+  border: 2px solid $red;
+  
+  &:hover {
+      background-color: $red;
+      border: 2px solid $red;
+      color: $white;
+  }
+}
+
+@mixin border-blue {
+  border: 2px solid $blue;
+}
+
+@mixin border-yellow {
+  border: 2px solid $yellow;
+}
+
+@mixin border-red {
+  border: 5px solid $red;
+}
+
+

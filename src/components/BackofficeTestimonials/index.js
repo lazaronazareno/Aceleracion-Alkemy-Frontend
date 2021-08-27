@@ -57,7 +57,7 @@ function BackofficeTestimonials() {
 										<td>{ name }</td>
 										<td>{ image }</td>
 										<td>{ content }</td>
-										<td><Button as={Link} to={`/backoffice/testimonios/${id}`}>Editar</Button></td>
+										<td><Button as={Link} to={`/backoffice/testimonios/${id}`} variant="info">Editar</Button></td>
 										<td><Button variant="danger">Eliminar</Button></td>
 									</tr>
 								)

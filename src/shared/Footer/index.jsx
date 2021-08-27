@@ -91,7 +91,7 @@ const Footer = () => {
 							}
 						</Nav> 
 						<Navbar.Brand href="/">
-							<img src={logoImg} alt='sample-logo'/>
+							<img src={logoImg} alt='sample-logo' className="w-75"/>
 							{/* FYI: Por el momento el logo esta guardado en la carpeta de imagnes. Cuando se tenga disponible la url de s3 se podra consmuir 
 							desde el campo image del public endpoint segun:  */}
 							{/* <img src={socialMedia.image} alt="Logo"></img> */}

@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react'
 import Member from '../Member'
 import useAxios from '../../libs/axiosInstance'
 import { Container, Row, Col } from 'react-bootstrap'
-import './styles.css'
+import './styles.scss'
 
 
 const MemberList = () => {
@@ -36,7 +36,7 @@ const MemberList = () => {
 				{
 					members.map((member, index) => {
 						return (
-							<Col key={index} md={3}>
+							<Col key={index} md={3} className="border-red p-1">
 								<Member  name={member.name} image={member.image} />
 							</Col>
 						)

@@ -61,7 +61,7 @@ function BackofficeActivitiesList() {
 										<td>{image}</td>
 										<td>{content}</td>
 										<td>Creado el {Moment(createdAt).format('DD-MM-YYYY')}</td>
-										<td><Button as={Link} to={`/backoffice/actividades/${id}`}>Editar</Button></td>
+										<td><Button as={Link} to={`/backoffice/actividades/${id}`} variant="info">Editar</Button></td>
 										<td><Button variant="danger">Eliminar</Button></td>
 									</tr>
 								)

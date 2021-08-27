@@ -24,7 +24,7 @@ export const UserListTable = ({ users }) => {
                 <td>{ user.lastName }</td>
                 <td>{ user.email }</td>
                 <td>
-                  <Button variant="primary"  size="sm" className="mx-1">Editar</Button>
+                  <Button variant="info"  size="sm" className="mx-1">Editar</Button>
                   <Button variant="danger"  size="sm" className="mx-1">Eliminar</Button>
                 </td>
               </tr>

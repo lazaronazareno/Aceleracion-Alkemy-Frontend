@@ -37,7 +37,7 @@ function SlidesEdit() {
 	})
 	return (
 		<Form onSubmit={formik.handleSubmit} className="d-flex flex-column align-items-center text-light bg-secondary">
-			<h2 className="d-flex m-3">Subir Imagenes</h2>
+			<span className="d-flex m-3 fs-2">Subir Imagenes</span>
 			<Form.Group className="d-flex flex-column">
 				<Button
 					as="input"
@@ -61,7 +61,7 @@ function SlidesEdit() {
 					ref={fileInput3}
 				/>
 			</Form.Group>
-			<Button className="mt-2" type="submit">
+			<Button className="m-2" type="submit">
               Enviar
 			</Button>
 		</Form>

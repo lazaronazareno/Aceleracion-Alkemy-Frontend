@@ -1,3 +1,5 @@
+@import '../../static/styles.scss';
+
 .left{
     text-align: left;
 }
@@ -13,4 +15,8 @@
 .date{
     font-size: small;
     color: darkgrey;
+}
+
+.btn-info {
+    @include btn-info
 }

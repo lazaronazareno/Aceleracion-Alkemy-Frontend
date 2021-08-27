@@ -4,7 +4,7 @@ import Moment from 'moment'
 import useAxios from '../../libs/axiosInstance'
 import { Card, Col, Row, Container } from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
-import './styles.css'
+import './styles.scss'
 import Sweel from '../../shared/Alert/Alert'
 import Loader from '../../shared/Loader/Loader'
 
@@ -49,12 +49,12 @@ export const NewList = () => {
 						news.map(({id, name, image, createdAt }) => {
 							return(
 								<Col md={4} key={id}>
-									<Card className="shadow">
+									<Card className="shadow border-blue">
 										<Card.Img className="h-75" variant="top" src={ image } />
 										<Card.Body>
 											<Card.Title className="left">{name}</Card.Title>
 											<Card.Text className="left date">Creado el {Moment(createdAt).format('DD-MM-YYYY')}</Card.Text>
-											<Link className="btn btn-primary" to={`/novedades/${id}`}>Ver detalle</Link>
+											<Link className="btn btn-info" to={`/novedades/${id}`}>Ver detalle</Link>
 										</Card.Body>
 									</Card>
 								</Col>
