@@ -9,18 +9,18 @@ import Sweel from '../../shared/Alert/Alert'
 import Loader from '../../shared/Loader/Loader'
 
 const httpConfig = {
-	url: '/news',
+	url: '/activities',
 	method: 'get'
 }
 
-export const NewList = () => {
+export const ActivitiesList = () => {
 	const { response, error, loading, fetchData } = useAxios()
 
-	const [news, setNews] = useState([])
+	const [activities, setActivities] = useState([])
 
 	useEffect(() => {
 		if (!loading && response) {
-			setNews(response.data)
+			setActivities(response.data)
 		}
 	}, [loading, response, error])
 
@@ -46,7 +46,7 @@ export const NewList = () => {
 				<Loader /> :
 				<Row>
 					{
-						news.map(({id, name, image, /* createdAt */ }) => {
+						activities.map(({id, name, image, /* createdAt */ }) => {
 							return(
 								<Col md={4} key={id}>
 									<Card className="shadow border-blue">

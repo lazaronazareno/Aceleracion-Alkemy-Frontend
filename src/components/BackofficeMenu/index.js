@@ -12,8 +12,8 @@ export const Backoffice = () => {
 			link: '/backoffice',
 		},
 		{
-			title: 'Usuarios',
-			link: '/backoffice/usuarios',
+			title: 'Inicio',
+			link: '/backoffice/Inicio',
 		},
 		{
 			title: 'Actividades',
@@ -32,12 +32,12 @@ export const Backoffice = () => {
 			link: '/backoffice/contactos',
 		},
 		{
-			title: 'Inicio',
-			link: '/backoffice/Inicio',
-		},
-		{
 			title: 'Categorias',
 			link: '/backoffice/categories',
+		},
+		{
+			title: 'Usuarios',
+			link: '/backoffice/usuarios',
 		},
 		{
 			title: 'Editar Usuario',

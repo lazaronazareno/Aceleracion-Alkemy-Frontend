@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import Moment from 'moment'
+/* import Moment from 'moment' */
 import useAxios from '../../libs/axiosInstance'
 import { Table, Container, Button } from 'react-bootstrap'
 import Loader from '../../shared/Loader/Loader'
@@ -67,20 +67,22 @@ function BackofficeNewsList() {
 						<thead>
 							<tr>
 								<th>Nombre</th>
+								<th>Contenido</th>
 								<th>Imagen</th>
-								<th>Creado</th>
+								{/* <th>Creado</th> */}
 								<th>Editar</th>
 								<th>Eliminar</th>
 							</tr>
 						</thead>
 						<tbody>
 							{news && (
-								news.map(({ id, name, image, createdAt }) => {
+								news.map(({ id, name, image,content}) => {
 									return (
 										<tr key={id}>
 											<td>{name}</td>
+											<td>{content}</td>
 											<td>{image}</td>
-											<td>Creado el {Moment(createdAt).format('DD-MM-YYYY')}</td>
+											{/* <td>Creado el {Moment(createdAt).format('DD-MM-YYYY')}</td> */}
 											<td><Button as={Link} to={`/backoffice/novedades/${id}`} onClick={(() => dispatch(addNewDetails(id)))}>Editar</Button></td>
 											<td><Button variant="danger" onClick={() => (handleDelete(id), setShow(true))}>Eliminar</Button></td>
 										</tr>

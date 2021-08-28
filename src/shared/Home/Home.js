@@ -51,7 +51,7 @@ function Home() {
 								<Card.Img className="h-75" src={news.image} />
 								<Card.Body>
 									<Card.Title>{news.name}</Card.Title>
-									<Card.Text>{news.createdAt}</Card.Text>
+									{/* 	<Card.Text>{news.createdAt}</Card.Text> */}
 								</Card.Body>
 							</Card>
 						))

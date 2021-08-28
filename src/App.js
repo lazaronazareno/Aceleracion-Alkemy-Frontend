@@ -18,7 +18,6 @@ import BackofficeNewsList from './components/BackofficeNewsList'
 import Login from './components/Login/Form'
 import Register from './components/Register'
 import useAxios from './libs/axiosInstance'
-
 import BackofficeCategories from './components/BackofficeCategories'
 import BackofficeHome from './components/BackofficeHome'
 import BackofficeContacts from './components/BackofficeContacts'
@@ -29,12 +28,14 @@ import { ActivityForm } from './components/ActivityForm'
 import TestimonialsForm from './components/TestimonialsForm'
 import MemberList from './components/MemberList'
 import { BackofficeMain } from './components/Backoffice'
+import {ActivitiesList} from './components/ActivitiesList/ActivitiesList'
 
 function App() {
 	const dispatch = useDispatch()
 	const { addAuth, addUser } = actions
 	const myRoutes = useSelector(state => state.user.routes)
 	const components = {
+		'/actividades': ActivitiesList,
 		'/novedades': NewList,
 		'/novedades/:id': NewsDetails, 
 		'/editUser': EditUser,
@@ -56,7 +57,7 @@ function App() {
 		'/backoffice/usuarios': UserList,
 		'/login': Login, 
 		'/register': Register,
-		'/backoffice': BackofficeMain,
+		'/backoffice/': BackofficeMain,
 	}
 	const httpConfig = {
 		url: '/auth/me',

@@ -120,7 +120,7 @@ function Contact() {
 			<Alert 
 				show={showSucces} 
 				title={''} 
-				text={'Usuario creado exitosamente'} 
+				text={'Consulta enviada exitosamente'} 
 				type={'success'} 
 				onConfirm={()=>setShowSuccess(false)}
 			/>

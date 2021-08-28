@@ -4,7 +4,7 @@ import actions from '../actions'
 const {welcomeTextAction} = actions
 
 const initialState = {
-	welcomeText: 'Texto de Bienvenida'
+	welcomeText: 'Juntos SOMOS MAS'
 }
 
 

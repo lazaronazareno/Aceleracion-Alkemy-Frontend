@@ -28,6 +28,7 @@ const Footer = () => {
 
 	useEffect( () => {
 		if (!loading && response) {
+			console.log('response',response)
 			setSocialMedia(response.data)
 			whiteUser.routes = response.routes
 			dispatch(addUser(whiteUser))

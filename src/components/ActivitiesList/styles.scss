@@ -1,0 +1,22 @@
+@import '../../static/styles.scss';
+
+.left{
+    text-align: left;
+}
+
+.container{
+    padding: 15px 0px;
+}
+
+.card{
+    margin-bottom: 10px;
+}
+
+.date{
+    font-size: small;
+    color: darkgrey;
+}
+
+.btn-info {
+    @include btn-info
+}
