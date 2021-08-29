@@ -2,7 +2,7 @@ import React,{useEffect} from 'react'
 import useAxios from '../../libs/axiosInstance'
 import { useDispatch, useSelector } from 'react-redux'
 import actions from '../../redux/actions'
-import { Table, Button } from 'react-bootstrap'
+import { Table, Button, Container } from 'react-bootstrap'
 
 const {addCategories, deleteCategory} = actions
 
@@ -43,25 +43,31 @@ const BackofficeCategories = () => {
 	}
 
 	return (
-		<Table>
-			<thead>
-				<th>Nombre</th>
-				<th>Acciones</th>
-			</thead>
-			<tbody>
-				{categories.map((category, i) => {
-					return (
-						<tr key={i}>
-							<td>{category.name}</td>
-							<td>
-								<Button variant='danger' onClick={() => handleDelete(category.id)}>Eliminar</Button>
-							</td>
-						</tr>
-					)
-				})}
+		<Container>
+			<Table striped bordered hover>
+				<thead>
+					<tr>
+						<th>Nombre</th>
+						<th>Descripción</th>
+						<th>Acciones</th>
+					</tr>
+				</thead>
+				<tbody>
+					{categories.map((category, i) => {
+						return (
+							<tr key={i}>
+								<td>{category.name}</td>
+								<td>{category.description}</td>
+								<td>
+									<Button variant='danger' onClick={() => handleDelete(category.id)}>Eliminar</Button>
+								</td>
+							</tr>
+						)
+					})}
 						
-			</tbody>
-		</Table>
+				</tbody>
+			</Table>
+		</Container>
 	)
 }
 

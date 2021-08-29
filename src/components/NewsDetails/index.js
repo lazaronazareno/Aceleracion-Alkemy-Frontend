@@ -48,7 +48,7 @@ function NewsDetails() {
 						<Card.Img className="cardImage" src={index.data.image} />
 						<Card.Header className="yellow" as="h3">{index.data.name}</Card.Header>
 						<Card.Body>
-							<Card.Title>Novedad {id}</Card.Title>
+							{/* <Card.Title>Novedad {id}</Card.Title> */}
 							<Card.Text>{index.data.content}</Card.Text>
 						</Card.Body>
 					</Card>
