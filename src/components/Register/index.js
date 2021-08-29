@@ -1,137 +1,118 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import * as yup from 'yup'
-import { Formik } from 'formik'
+import { useFormik } from 'formik'
 import { Form, Col, Button, Card } from 'react-bootstrap'
-import axios from 'axios'
 import { useDispatch } from 'react-redux'
 import actions from '../../redux/actions'
 import { useHistory } from 'react-router-dom'
 import { addAuth } from '../../redux/actions/authAction'
+import useAxios from '../../libs/axiosInstance'
 
-/* eslint indent:"off" */
 const FormRegister = () => {
-  const { addUser } = actions
-  const history = useHistory()
-  const dispatch = useDispatch()
-  const schema = yup.object().shape({
-    firstName: yup.string().required(),
-    lastName: yup.string().required(),
-    email: yup.string().email('Invalid email format').required(),
-    password: yup.string().min(8, 'Debe tener un minimo de 8 caracters').required(),
-  })
+	const { addUser } = actions
+	const history = useHistory()
+	const dispatch = useDispatch()
+	const { response, error, loading, fetchData } = useAxios()
+	const validationSchema = yup.object({
+		firstName: yup.string().required('Debe ingresar su nombre'),
+		lastName: yup.string().required('Debe ingresar su apellido'),
+		email: yup.string().email('Formato de mail incorrecto').required('Debe ingresar un email'),
+		password: yup.string().min(8, 'Debe tener un minimo de 8 caracters').required('Debe ingresar una contraseña'),
+	})
+  
+	const handleSubmit = (body) => {
+		fetchData({url:'/users/register', method:'post', body})
+	}
+    
+	useEffect(() => {
+		if(!loading && response) {
+			const {token, data} = response
+			console.log(response)
+			console.log(data)
+			localStorage.setItem('token', `Bearer ${token}`)
+			dispatch(addAuth(true))
+			dispatch(addUser(data))
+			history.push('/')
+		}
+	}, [response, error, loading])
 
-  return (
-    <div>
-      <Formik
-        validationSchema={schema}
-        initialValues={{
-          lastName: '',
-          firstName: '',
-          email: '',
-          password: '',
-        }}
-        validate={(values) => {
-          const errors = {}
+	const formik = useFormik({
+		validationSchema: validationSchema, 
+		initialValues: {
+			lastName: '',
+			firstName: '',
+			email: '',
+			password: '',
+		},
+		onSubmit: (values) => handleSubmit(values)
+	})
 
-          if (!values.firstName) {
-            errors.firstName = 'Debes ingresar su nombre.'
-          }
+	return (
+		<Form onSubmit={formik.handleSubmit} className="container d-flex flex-column text-center">
+			<Card style={{ width: '24rem' }} className="mx-auto mt-5">
+				<Card.Title className="mt-2">Registro.</Card.Title>
+				<Card.Body>
+					<Form.Group md="12" as={Col} controlId="validationName">
+						<Form.Label>Nombre</Form.Label>
+						<Form.Control
+							type="text"
+							name="firstName"
+							placeholder="Nombre"
+							value={formik.values.firstName}
+							onChange={formik.handleChange}
+							isValid={formik.values.firstName && !formik.errors.firstName}
+							isInvalid={formik.errors.firstName}
+						/>
+						<Form.Control.Feedback type="invalid">{formik.errors.firstName}</Form.Control.Feedback>
+					</Form.Group>
 
-          if (!values.lastName) {
-            errors.lastName = 'Debes ingresar su apellido.'
-          }
+					<Form.Group md="12" as={Col} controlId="validationlastname">
+						<Form.Label>Apellido</Form.Label>
+						<Form.Control
+							type="text"
+							name="lastName"
+							placeholder="Apellido"
+							value={formik.values.lastName}
+							onChange={formik.handleChange}
+							isValid={formik.values.lastName && !formik.errors.lastName}
+							isInvalid={formik.errors.lastName}
+						/>
+						<Form.Control.Feedback type="invalid">{formik.errors.lastName}</Form.Control.Feedback>
+					</Form.Group>
 
-          if (!values.email) {
-            errors.email = 'Debes ingresar un email.'
-          } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)) {
-            errors.email = 'Formato de email invalido.'
-          }
+					<Form.Label>Email</Form.Label>
+					<Form.Control
+						type="email"
+						name="email"
+						placeholder="Email"
+						value={formik.values.email}
+						onChange={formik.handleChange}
+						isValid={formik.values.email && !formik.errors.email}
+						isInvalid={formik.errors.email}
+					/>
+					<Form.Control.Feedback type="invalid">{formik.errors.email}</Form.Control.Feedback>
 
-          if (!values.password) {
-            errors.password = 'Debes ingresar una contraseña.'
-          } else if (values.password.length < 6) {
-            errors.password = 'La contraseña debe tener un minimo de 6 digitos.'
-          }
-          return errors
-        }}
-        onSubmit={async(values, { setSubmitting }) => {
-          setSubmitting(false)
-          const response = await axios.post('http://localhost:4000/users/register', values)
-          dispatch(addUser(response.data.data))
-          localStorage.setItem('token', response.data.token)
-          dispatch(addAuth(true))
-          history.push('/')
-        }}
-      >
-        {({ handleSubmit, handleChange, values, touched, errors }) => (
-          <Form noValidate onSubmit={handleSubmit}>
-            <Card style={{ width: '24rem' }} className="mx-auto mt-5">
-              <Card.Title className="mt-2">Registro.</Card.Title>
-              <Card.Body>
-                <Form.Group md="12" as={Col} controlId="validationName">
-                  <Form.Label>Nombre</Form.Label>
-                  <Form.Control
-                    type="text"
-                    name="firstName"
-                    placeholder="Nombre"
-                    value={values.firstName}
-                    onChange={handleChange}
-                    isValid={touched.firstName && !errors.firstName}
-                    isInvalid={!!errors.firstName}
-                  />
-                  <Form.Control.Feedback type="invalid">{errors.firstName}</Form.Control.Feedback>
-                </Form.Group>
+					<Form.Group md="12" as={Col} controlId="validationPassword">
+						<Form.Label>Contraseña</Form.Label>
+						<Form.Control
+							type="password"
+							name="password"
+							placeholder="Contraseña"
+							value={formik.values.password}
+							onChange={formik.handleChange}
+							isValid={formik.values.password && !formik.errors.password}
+							isInvalid={formik.errors.password}
+						/>
+						<Form.Control.Feedback type="invalid">{formik.errors.password}</Form.Control.Feedback>
+					</Form.Group>
 
-                <Form.Group md="12" as={Col} controlId="validationlastname">
-                  <Form.Label>Apellido</Form.Label>
-                  <Form.Control
-                    type="text"
-                    name="lastName"
-                    placeholder="Apellido"
-                    value={values.lastName}
-                    onChange={handleChange}
-                    isValid={touched.lastName && !errors.lastName}
-                    isInvalid={!!errors.lastName}
-                  />
-                  <Form.Control.Feedback type="invalid">{errors.lastName}</Form.Control.Feedback>
-                </Form.Group>
-
-                <Form.Label>Email</Form.Label>
-                <Form.Control
-                  type="email"
-                  name="email"
-                  placeholder="Email"
-                  value={values.email}
-                  onChange={handleChange}
-                  isValid={touched.email && !errors.email}
-                  isInvalid={!!errors.email}
-                />
-                <Form.Control.Feedback type="invalid">{errors.email}</Form.Control.Feedback>
-
-                <Form.Group md="12" as={Col} controlId="validationPassword">
-                  <Form.Label>Contraseña</Form.Label>
-                  <Form.Control
-                    type="password"
-                    name="password"
-                    placeholder="Contraseña"
-                    value={values.password}
-                    onChange={handleChange}
-                    isInvalid={!!errors.password}
-                    isValid={touched.password && !errors.password}
-                  />
-                  <Form.Control.Feedback type="invalid">{errors.password}</Form.Control.Feedback>
-                </Form.Group>
-
-                <Button type="submit" className="mt-2">
+					<Button type="submit" className="mt-2">
                   Registrarme
-                </Button>
-              </Card.Body>
-            </Card>
-          </Form>
-        )}
-      </Formik>
-    </div>
-  )
+					</Button>
+				</Card.Body>
+			</Card>
+		</Form>
+	)
 }
 
 export default FormRegister
