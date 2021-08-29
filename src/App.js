@@ -29,6 +29,7 @@ import TestimonialsForm from './components/TestimonialsForm'
 import MemberList from './components/MemberList'
 import { BackofficeMain } from './components/Backoffice'
 import {ActivitiesList} from './components/ActivitiesList/ActivitiesList'
+import { TestimonialsList } from './components/TestimonialsList'
 
 function App() {
 	const dispatch = useDispatch()
@@ -42,7 +43,7 @@ function App() {
 		'/user': UserProfile,
 		'/contacto': Contact,
 		'/nosotros': MemberList,
-		'/testimonios': NotFound,
+		'/testimonios': TestimonialsList,
 		'/contribuye': NotFound,
 		'/backoffice/novedades': BackofficeNewsList,
 		'/backoffice/novedades/:id': FormNews,

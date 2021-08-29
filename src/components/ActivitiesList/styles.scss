@@ -20,3 +20,11 @@
 .btn-info {
     @include btn-info
 }
+
+.btn-yellow {
+    @include btn-yellow;
+}
+
+.border-bottom-yellow {
+    @include border-bottom-yellow
+}

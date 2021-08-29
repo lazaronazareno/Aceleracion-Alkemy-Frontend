@@ -1,26 +1,23 @@
 import React, { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
-//import Moment from 'moment'
 import useAxios from '../../libs/axiosInstance'
 import { Card, Col, Row, Container } from 'react-bootstrap'
-import 'bootstrap/dist/css/bootstrap.min.css'
 import './styles.scss'
 import Sweel from '../../shared/Alert/Alert'
 import Loader from '../../shared/Loader/Loader'
 
 const httpConfig = {
-	url: '/news',
+	url: '/testimonials',
 	method: 'get'
 }
 
-export const NewList = () => {
+export const TestimonialsList = () => {
 	const { response, error, loading, fetchData } = useAxios()
 
-	const [news, setNews] = useState([])
+	const [testimonials, setTestimonials] = useState([])
 
 	useEffect(() => {
 		if (!loading && response) {
-			setNews(response.data)
+			setTestimonials(response.data)
 		}
 	}, [loading, response, error])
 
@@ -45,18 +42,17 @@ export const NewList = () => {
 			{loading ?
 				<Loader /> :
 				<Row>
-					<span className="fs-1 border-bottom-blue">Novedades</span>
-					<span className="fs-3 mb-3">Informese sobre las ultimas novedades de nuestra Ong : </span>
+					<span className="fs-1 border-bottom-red">Testimonios</span>
+					<span className="fs-3 mb-3">Vea algunos testimonios de personas que pasaron por nuestra ONG: </span>
 					{
-						news.map(({id, name, image, /* createdAt */ }) => {
+						testimonials.map(({id, name, image, content }) => {
 							return(
-								<Col md={4} key={id}>
-									<Card className="shadow border-blue">
+								<Col md={3} key={id}>
+									<Card className="shadow border-red">
 										<Card.Img className="h-75" variant="top" src={ image } />
 										<Card.Body>
 											<Card.Title>{name}</Card.Title>
-											{/* <Card.Text className="left date">Creado el {Moment(createdAt).format('DD-MM-YYYY')}</Card.Text> */}
-											<Link className="btn btn-info" to={`/novedades/${id}`}>Ver detalle</Link>
+											<Card.Text>{content}</Card.Text>
 										</Card.Body>
 									</Card>
 								</Col>

@@ -33,6 +33,7 @@ const MemberList = () => {
 	return (
 		<Container>
 			<Row>
+				<span className="fs-1 border-bottom-red mb-3">Miembros</span>
 				{
 					members.map((member, index) => {
 						return (

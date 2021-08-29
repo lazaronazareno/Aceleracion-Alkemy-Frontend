@@ -45,16 +45,18 @@ export const ActivitiesList = () => {
 			{loading ?
 				<Loader /> :
 				<Row>
+					<span className="fs-1 border-bottom-yellow">Actividades</span>
+					<span className="fs-3 mb-3">Vea aqui las ultimas actividades de Somos Más: </span>
 					{
 						activities.map(({id, name, image, /* createdAt */ }) => {
 							return(
 								<Col md={4} key={id}>
-									<Card className="shadow border-blue">
+									<Card className="shadow border-yellow">
 										<Card.Img className="h-75" variant="top" src={ image } />
 										<Card.Body>
 											<Card.Title className="left">{name}</Card.Title>
 											{/* <Card.Text className="left date">Creado el {Moment(createdAt).format('DD-MM-YYYY')}</Card.Text> */}
-											<Link className="btn btn-info" to={`/novedades/${id}`}>Ver detalle</Link>
+											<Link className="btn btn-yellow" to={`/novedades/${id}`}>Ver detalle</Link>
 										</Card.Body>
 									</Card>
 								</Col>
