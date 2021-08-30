@@ -1,11 +1,21 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { Container, Image, Button, ListGroup } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import './styles.scss'
 import { useSelector } from 'react-redux'
+import Sweel from '../../shared/Alert/Alert'
 
 function UserProfile() {
 	const user = useSelector((state) => state.user)	
+
+	const [show, setShow] = useState(false)
+	const onClick = () => {
+		setShow(true)
+	}
+	const onConfirm = () => {
+		setShow(false)
+	}
+
 	return (
 		<Container className="">
 			<Container className="yellow p-0">
@@ -18,8 +28,13 @@ function UserProfile() {
 			</ListGroup>
 			<Container className="translate buttons d-flex justify-content-evenly">
 				<Button as={Link} to='/editUser' className="btn-info" size="lg">Editar Datos</Button>
-				<Button variant="danger" onClick={() => alert('Cuenta Eliminada(añadir accion en el futuro)')} size="lg">Eliminar Cuenta</Button>
+				<Button variant="danger" onClick={onClick}>Eliminar Cuenta</Button>
 			</Container>
+			<Sweel show={show}
+				title={'Usuario Eliminado'}
+				text={'Usuario eliminado correctamente'}
+				type={'success'}
+				onConfirm={onConfirm} />
 		</Container>
 	)
 }
