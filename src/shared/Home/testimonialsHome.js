@@ -50,7 +50,7 @@ export default function TestimonialsHome () {
 								<Card.Img className="h-75" src={news.image} />
 								<Card.Body>
 									<Card.Title>{news.name}</Card.Title>
-									<Card.Text>{news.image}</Card.Text>
+									<Card.Text>{news.content}</Card.Text>
 								</Card.Body>
 							</Card>
 						))

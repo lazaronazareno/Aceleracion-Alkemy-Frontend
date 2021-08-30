@@ -26,6 +26,7 @@ function Home() {
 			<Container className=" py-2 border-red" fluid>
 				<span className=" fs-1 border-red">Testimonios</span>
 				<TestimonialsHome />
+				<Link to="/testimonios" className= "btn btn-danger" >Ver Todos</Link>
 			</Container>
 		</Container>
 	)
