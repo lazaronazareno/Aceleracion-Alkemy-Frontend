@@ -1,4 +1,4 @@
 # Ong Client
 
 ## preview
-<img src="https://i.ibb.co/rdC5h7f/ong.png"/>
+![Alt Text](https://i.ibb.co/Bgcx6WQ/ong-1.png)
